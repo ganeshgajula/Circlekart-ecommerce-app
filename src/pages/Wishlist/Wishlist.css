@@ -14,8 +14,16 @@
 }
 
 .wishlist-area {
-  margin: 6rem auto 0;
+  margin: 8rem auto 0;
   max-width: 95%;
+}
+
+.wishlisted-items {
   display: grid;
   grid-template-columns: repeat(4, 0.9fr);
+}
+
+.wishlist-count-value {
+  font-weight: 600;
+  margin-left: 1.3rem;
 }
