@@ -36,10 +36,18 @@ export const dataReducer = (state, action) => {
         ),
       };
 
-    case "MOVE_TO_WISHLIST":
+    case "ADD_TO_WISHLIST":
       return {
         ...state,
         itemsInWishlist: [...state.itemsInWishlist, action.payload],
+      };
+
+    case "REMOVE_FROM_WISHLIST":
+      return {
+        ...state,
+        itemsInWishlist: state.itemsInWishlist.filter(
+          (wishlistedItem) => wishlistedItem.id !== action.payload
+        ),
       };
 
     default:

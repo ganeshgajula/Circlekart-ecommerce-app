@@ -3,6 +3,8 @@ import { Navbar } from "../../components/Navbar/Navbar";
 import "../ProductListing/ProductListing.css";
 import { useProducts } from "../../context/ProductsProvider";
 import { useData } from "../../context/DataProvider";
+import { isItemPresent } from "../../components/utils/utils";
+import { Link } from "react-router-dom";
 
 export const ProductListing = () => {
   const {
@@ -10,7 +12,10 @@ export const ProductListing = () => {
     productsDispatch,
   } = useProducts();
 
-  const { dataDispatch } = useData();
+  const {
+    state: { itemsInWishlist, itemsInCart },
+    dataDispatch,
+  } = useData();
 
   const getSortedData = (products, sortBy) => {
     if (sortBy && sortBy === "PRICE_HIGH_TO_LOW") {
@@ -118,11 +123,36 @@ export const ProductListing = () => {
               >
                 <img src={image} width="100%" height="auto" alt={productName} />
                 <span className="close-btn-on-card">
-                  <svg width="1.5rem" height="1.5rem" viewBox="0 0 24 24">
-                    <path
-                      d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.27 2 8.5C2 5.41 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.08C13.09 3.81 14.76 3 16.5 3C19.58 3 22 5.41 22 8.5c0 3.77-3.4 6.86-8.55 11.53L12 21.35z"
-                      fill="white"
-                    ></path>
+                  <svg
+                    width="1.5rem"
+                    height="1.5rem"
+                    viewBox="0 0 24 24"
+                    style={{
+                      fill: `${
+                        isItemPresent(itemsInWishlist, id) ? "red" : "white"
+                      }`,
+                    }}
+                    onClick={() =>
+                      isItemPresent(itemsInWishlist, id)
+                        ? dataDispatch({
+                            type: "REMOVE_FROM_WISHLIST",
+                            payload: id,
+                          })
+                        : dataDispatch({
+                            type: "ADD_TO_WISHLIST",
+                            payload: {
+                              id,
+                              name,
+                              image,
+                              price,
+                              productName,
+                              inStock,
+                              fastDelivery,
+                            },
+                          })
+                    }
+                  >
+                    <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.27 2 8.5C2 5.41 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.08C13.09 3.81 14.76 3 16.5 3C19.58 3 22 5.41 22 8.5c0 3.77-3.4 6.86-8.55 11.53L12 21.35z"></path>
                   </svg>
                 </span>
                 <h3> {name} </h3>
@@ -135,7 +165,7 @@ export const ProductListing = () => {
                 ) : (
                   <div> 3 days minimum </div>
                 )}
-                <button
+                {/* <button
                   onClick={() =>
                     dataDispatch({
                       type: "ADD_TO_CART",
@@ -152,8 +182,37 @@ export const ProductListing = () => {
                     })
                   }
                 >
-                  Add to Cart
-                </button>
+                  {isItemPresent(itemsInCart, id)
+                    ? "Go to Cart"
+                    : "Add to Cart"}
+                </button> */}
+                {!isItemPresent(itemsInCart, id) ? (
+                  <button
+                    onClick={() =>
+                      dataDispatch({
+                        type: "ADD_TO_CART",
+                        payload: {
+                          id,
+                          name,
+                          image,
+                          price,
+                          productName,
+                          inStock,
+                          fastDelivery,
+                          quantity: 1,
+                        },
+                      })
+                    }
+                  >
+                    Add to Cart
+                  </button>
+                ) : null}
+
+                {isItemPresent(itemsInCart, id) ? (
+                  <Link to="/cart">
+                    <button>Go to Cart</button>
+                  </Link>
+                ) : null}
               </div>
             )
           )}

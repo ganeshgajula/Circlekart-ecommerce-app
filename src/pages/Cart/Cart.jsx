@@ -60,7 +60,7 @@ export const Cart = () => {
               <button
                 onClick={() => {
                   dataDispatch({
-                    type: "MOVE_TO_WISHLIST",
+                    type: "ADD_TO_WISHLIST",
                     payload: {
                       id,
                       name,
