@@ -34,7 +34,9 @@ export function Navbar() {
             ></path>
           </svg>
         </li>
-        <li className="nav-item">{<ProfileSvg />}</li>
+        <Link to="/products">
+          <li className="nav-item">{<ProfileSvg />}</li>
+        </Link>
         <Link to="/wishlist">
           <li className="nav-item">{<OutlinedHeartSvg />}</li>
         </Link>

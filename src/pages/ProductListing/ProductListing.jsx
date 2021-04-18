@@ -2,12 +2,15 @@ import React from "react";
 import { Navbar } from "../../components/Navbar/Navbar";
 import "../ProductListing/ProductListing.css";
 import { useProducts } from "../../context/ProductsProvider";
+import { useData } from "../../context/DataProvider";
 
 export const ProductListing = () => {
   const {
     data: { products, showInventoryAll, fastDeliveryOnly, sortBy },
     productsDispatch,
   } = useProducts();
+
+  const { dataDispatch } = useData();
 
   const getSortedData = (products, sortBy) => {
     if (sortBy && sortBy === "PRICE_HIGH_TO_LOW") {
@@ -123,6 +126,25 @@ export const ProductListing = () => {
                 ) : (
                   <div> 3 days minimum </div>
                 )}
+                <button
+                  onClick={() =>
+                    dataDispatch({
+                      type: "ADD_TO_CART",
+                      payload: {
+                        id,
+                        name,
+                        image,
+                        price,
+                        productName,
+                        inStock,
+                        fastDelivery,
+                        quantity: 1,
+                      },
+                    })
+                  }
+                >
+                  Add to Cart
+                </button>
               </div>
             )
           )}
