@@ -57,6 +57,25 @@ export const Cart = () => {
               >
                 Remove
               </button>
+              <button
+                onClick={() => {
+                  dataDispatch({
+                    type: "MOVE_TO_WISHLIST",
+                    payload: {
+                      id,
+                      name,
+                      image,
+                      price,
+                      productName,
+                      inStock,
+                      fastDelivery,
+                    },
+                  });
+                  dataDispatch({ type: "REMOVE_FROM_CART", payload: id });
+                }}
+              >
+                Move to wishlist
+              </button>
             </div>
           )
       )}

@@ -36,6 +36,12 @@ export const dataReducer = (state, action) => {
         ),
       };
 
+    case "MOVE_TO_WISHLIST":
+      return {
+        ...state,
+        itemsInWishlist: [...state.itemsInWishlist, action.payload],
+      };
+
     default:
       return state;
   }
