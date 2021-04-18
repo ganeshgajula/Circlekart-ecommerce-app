@@ -1,4 +1,39 @@
 .main-product-area {
   margin: 10rem auto 0;
-  max-width: 85%;
+  max-width: 95%;
+  display: flex;
+}
+
+.close-btn-on-card {
+  right: 1.3rem;
+  background-color: #d1d5db;
+  padding: 0.4rem 0.4rem 0.2rem;
+  border-radius: 50%;
+}
+
+.close-btn-on-card > svg {
+  cursor: pointer;
+}
+
+.side-pannel {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  max-width: 19%;
+  position: fixed;
+}
+
+label {
+  display: block;
+}
+
+.products-area {
+  margin-left: 18rem;
+  display: grid;
+  grid-template-columns: repeat(4, 0.9fr);
+  /* grid-gap: 1rem; */
+}
+
+.btn-outline {
+  margin-top: 1rem;
 }

@@ -50,6 +50,16 @@ export const dataReducer = (state, action) => {
         ),
       };
 
+    case "ADD_ITEM_WITH_INCREASED_QUANTITY":
+      return {
+        ...state,
+        itemsInCart: state.itemsInCart.map((cartItem) =>
+          cartItem.id === action.payload
+            ? { ...cartItem, quantity: cartItem.quantity + 1 }
+            : cartItem
+        ),
+      };
+
     default:
       return state;
   }

@@ -8,8 +8,13 @@ import {
   SearchSvg,
 } from "../Reusable-Svgs/svgs";
 import { Link } from "react-router-dom";
+import { useData } from "../../context/DataProvider";
 
 export function Navbar() {
+  const {
+    state: { itemsInCart, itemsInWishlist },
+  } = useData();
+
   return (
     <nav className="navbar">
       <Link to="/">
@@ -38,10 +43,20 @@ export function Navbar() {
           <li className="nav-item">{<ProfileSvg />}</li>
         </Link>
         <Link to="/wishlist">
-          <li className="nav-item">{<OutlinedHeartSvg />}</li>
+          <li className="nav-item badge-on-icon-container">
+            {<OutlinedHeartSvg />}
+            <span className="icon-badge blue ic-bdg-heart-top">
+              {itemsInWishlist.length}
+            </span>
+          </li>
         </Link>
         <Link to="/cart">
-          <li className="nav-item">{<OutlinedCartSvg />}</li>
+          <li className="nav-item badge-on-icon-container">
+            {<OutlinedCartSvg />}
+            <span className="icon-badge blue ic-bdg-cart-top">
+              {itemsInCart.length}
+            </span>
+          </li>
         </Link>
       </ul>
     </nav>
