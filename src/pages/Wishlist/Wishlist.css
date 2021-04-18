@@ -1,0 +1,21 @@
+.btn-outline {
+  margin-top: 1rem;
+}
+
+.close-btn-on-card {
+  right: 1.3rem;
+  background-color: #d1d5db;
+  padding: 0.4rem 0.4rem 0.2rem;
+  border-radius: 50%;
+}
+
+.close-btn-on-card > svg {
+  cursor: pointer;
+}
+
+.wishlist-area {
+  margin: 6rem auto 0;
+  max-width: 95%;
+  display: grid;
+  grid-template-columns: repeat(4, 0.9fr);
+}

@@ -1,84 +1,139 @@
 import { Navbar } from "../../components/Navbar/Navbar";
 import { useData } from "../../context/DataProvider";
+import "../Cart/Cart.css";
 
 export const Cart = () => {
   const { state, dataDispatch } = useData();
+
+  const getTotal = (cartItems) =>
+    cartItems.reduce((total, value) => total + value.price * value.quantity, 0);
+
   return (
     <div>
       <Navbar />
-      {state.itemsInCart.map(
-        ({
-          id,
-          name,
-          image,
-          price,
-          productName,
-          inStock,
-          fastDelivery,
-          quantity,
-        }) =>
-          quantity === 0 ? null : (
-            <div
-              key={id}
-              style={{
-                border: "1px solid #4B5563",
-                borderRadius: "0 0 0.5rem 0.5rem",
-                margin: "10rem 1rem 1rem",
-                maxWidth: "20%",
-                padding: "0 0rem 1rem",
-              }}
-            >
-              <img src={image} width="100%" height="auto" alt={productName} />
-              <h3> {name} </h3>
-              <div>Rs. {price}</div>
-              {inStock && <div> In Stock </div>}
-              {!inStock && <div> Out of Stock </div>}
+      <main className="cart-area">
+        <div className="cartItems-section">
+          <div className="cartValue-msg">
+            <span className="cart-items-qty">
+              My Cart ({state.itemsInCart.length} items)
+            </span>
+            <span className="total-cart-value">
+              Total: Rs.{getTotal(state.itemsInCart)}
+            </span>
+          </div>
+          {state.itemsInCart.map(
+            ({
+              id,
+              name,
+              image,
+              price,
+              productName,
+              inStock,
+              fastDelivery,
+              quantity,
+            }) =>
+              quantity === 0 ? null : (
+                <div
+                  key={id}
+                  style={{
+                    border: "1px solid #e5e7eb",
+                    borderRadius: "0.5rem",
+                    margin: "1rem",
+                    padding: "0.9rem",
+                  }}
+                >
+                  <div className="cartItem">
+                    <img
+                      src={image}
+                      alt={productName}
+                      className="cartItem-img"
+                    />
 
-              {fastDelivery ? (
-                <div> Fast Delivery </div>
-              ) : (
-                <div> 3 days minimum </div>
-              )}
-              <button
-                onClick={() => dataDispatch({ type: "DECREMENT", payload: id })}
-              >
-                -
-              </button>
-              <span>{quantity}</span>
-              <button
-                onClick={() => dataDispatch({ type: "INCREMENT", payload: id })}
-              >
-                +
-              </button>
-              <button
-                onClick={() =>
-                  dataDispatch({ type: "REMOVE_FROM_CART", payload: id })
-                }
-              >
-                Remove
-              </button>
-              <button
-                onClick={() => {
-                  dataDispatch({
-                    type: "ADD_TO_WISHLIST",
-                    payload: {
-                      id,
-                      name,
-                      image,
-                      price,
-                      productName,
-                      inStock,
-                      fastDelivery,
-                    },
-                  });
-                  dataDispatch({ type: "REMOVE_FROM_CART", payload: id });
-                }}
-              >
-                Move to wishlist
-              </button>
+                    <span className="cartItem-description">
+                      <h3> {name} </h3>
+                      <div>Rs. {price}</div>
+                      {inStock && <div> In Stock </div>}
+                      {!inStock && <div> Out of Stock </div>}
+
+                      {fastDelivery ? (
+                        <div> Fast Delivery </div>
+                      ) : (
+                        <div> 3 days minimum </div>
+                      )}
+                      <button
+                        onClick={() =>
+                          dataDispatch({ type: "DECREMENT", payload: id })
+                        }
+                        className="btn-outline btn-sm count-btn"
+                      >
+                        -
+                      </button>
+                      <span>{quantity}</span>
+                      <button
+                        onClick={() =>
+                          dataDispatch({ type: "INCREMENT", payload: id })
+                        }
+                        className="btn-outline btn-sm count-btn"
+                      >
+                        +
+                      </button>
+                    </span>
+                  </div>
+
+                  <div className="action-btns">
+                    <button
+                      className="btn-outline btn-sm"
+                      onClick={() =>
+                        dataDispatch({ type: "REMOVE_FROM_CART", payload: id })
+                      }
+                    >
+                      Remove
+                    </button>
+                    <button
+                      className="btn-outline btn-sm"
+                      onClick={() => {
+                        dataDispatch({
+                          type: "ADD_TO_WISHLIST",
+                          payload: {
+                            id,
+                            name,
+                            image,
+                            price,
+                            productName,
+                            inStock,
+                            fastDelivery,
+                          },
+                        });
+                        dataDispatch({ type: "REMOVE_FROM_CART", payload: id });
+                      }}
+                    >
+                      Move to wishlist
+                    </button>
+                  </div>
+                </div>
+              )
+          )}
+        </div>
+        <aside>
+          <div className="checkout-panel">
+            <div className="checkout-header">
+              PRICE DETAILS <span>({state.itemsInCart.length} Items)</span>
             </div>
-          )
-      )}
+            <div className="checkout-field">
+              <span>Total MRP</span>
+              <span>Rs.{getTotal(state.itemsInCart)}</span>
+            </div>
+            <div className="checkout-field">
+              <span>Delivery Fee</span>
+              <span>Free</span>
+            </div>
+            <div className="checkout-field">
+              <span>Total Amount</span>
+              <span>Rs.{getTotal(state.itemsInCart)}</span>
+            </div>
+          </div>
+        </aside>
+      </main>
     </div>
   );
 };
