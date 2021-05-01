@@ -12,7 +12,7 @@ export const dataReducer = (state, action) => {
       return {
         ...state,
         itemsInCart: state.itemsInCart.map((cartItem) =>
-          cartItem.id === action.payload
+          cartItem._id === action.payload
             ? { ...cartItem, quantity: cartItem.quantity + 1 }
             : cartItem
         ),
@@ -22,7 +22,7 @@ export const dataReducer = (state, action) => {
       return {
         ...state,
         itemsInCart: state.itemsInCart.map((cartItem) =>
-          cartItem.id === action.payload
+          cartItem._id === action.payload
             ? { ...cartItem, quantity: cartItem.quantity - 1 }
             : cartItem
         ),
@@ -32,7 +32,7 @@ export const dataReducer = (state, action) => {
       return {
         ...state,
         itemsInCart: state.itemsInCart.filter(
-          (cartItem) => cartItem.id !== action.payload
+          (cartItem) => cartItem._id !== action.payload
         ),
       };
 
@@ -46,7 +46,7 @@ export const dataReducer = (state, action) => {
       return {
         ...state,
         itemsInWishlist: state.itemsInWishlist.filter(
-          (wishlistedItem) => wishlistedItem.id !== action.payload
+          (wishlistedItem) => wishlistedItem._id !== action.payload
         ),
       };
 
@@ -54,7 +54,7 @@ export const dataReducer = (state, action) => {
       return {
         ...state,
         itemsInCart: state.itemsInCart.map((cartItem) =>
-          cartItem.id === action.payload
+          cartItem._id === action.payload
             ? { ...cartItem, quantity: cartItem.quantity + 1 }
             : cartItem
         ),

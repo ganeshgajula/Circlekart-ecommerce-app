@@ -23,7 +23,7 @@ export const Cart = () => {
           </div>
           {state.itemsInCart.map(
             ({
-              id,
+              _id,
               name,
               image,
               price,
@@ -34,7 +34,7 @@ export const Cart = () => {
             }) =>
               quantity === 0 ? null : (
                 <div
-                  key={id}
+                  key={_id}
                   style={{
                     border: "1px solid #e5e7eb",
                     borderRadius: "0.5rem",
@@ -62,7 +62,7 @@ export const Cart = () => {
                       )}
                       <button
                         onClick={() =>
-                          dataDispatch({ type: "DECREMENT", payload: id })
+                          dataDispatch({ type: "DECREMENT", payload: _id })
                         }
                         className="btn-outline btn-sm count-btn"
                       >
@@ -71,7 +71,7 @@ export const Cart = () => {
                       <span>{quantity}</span>
                       <button
                         onClick={() =>
-                          dataDispatch({ type: "INCREMENT", payload: id })
+                          dataDispatch({ type: "INCREMENT", payload: _id })
                         }
                         className="btn-outline btn-sm count-btn"
                       >
@@ -84,7 +84,7 @@ export const Cart = () => {
                     <button
                       className="btn-outline btn-sm"
                       onClick={() =>
-                        dataDispatch({ type: "REMOVE_FROM_CART", payload: id })
+                        dataDispatch({ type: "REMOVE_FROM_CART", payload: _id })
                       }
                     >
                       Remove
@@ -95,7 +95,7 @@ export const Cart = () => {
                         dataDispatch({
                           type: "ADD_TO_WISHLIST",
                           payload: {
-                            id,
+                            _id,
                             name,
                             image,
                             price,
@@ -104,7 +104,10 @@ export const Cart = () => {
                             fastDelivery,
                           },
                         });
-                        dataDispatch({ type: "REMOVE_FROM_CART", payload: id });
+                        dataDispatch({
+                          type: "REMOVE_FROM_CART",
+                          payload: _id,
+                        });
                       }}
                     >
                       Move to wishlist

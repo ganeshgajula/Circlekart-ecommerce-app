@@ -1,2 +1,2 @@
 export const isItemPresent = (array, id) =>
-  !!array.find((item) => item.id === id);
+  !!array.find((item) => item._id === id);

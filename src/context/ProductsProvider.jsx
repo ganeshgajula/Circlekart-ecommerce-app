@@ -1,12 +1,12 @@
 import { createContext, useContext, useReducer } from "react";
-import { products } from "../api/faker-data";
+// import { products } from "../api/faker-data";
 import { productsReducer } from "../reducer/productsReducer";
 
 export const ProductsContext = createContext();
 
 export const ProductsProvider = ({ children }) => {
   const initialState = {
-    products,
+    products: [],
     showInventoryAll: true,
     fastDeliveryOnly: false,
     sortBy: null,

@@ -101,7 +101,7 @@ export const ProductListing = () => {
         <main className="products-area">
           {filteredData.map(
             ({
-              id,
+              _id,
               name,
               image,
               price,
@@ -111,7 +111,7 @@ export const ProductListing = () => {
               fastDelivery,
             }) => (
               <div
-                key={id}
+                key={_id}
                 style={{
                   border: "1px solid #e5e7eb",
                   borderRadius: "0.5rem",
@@ -128,19 +128,19 @@ export const ProductListing = () => {
                     viewBox="0 0 24 24"
                     style={{
                       fill: `${
-                        isItemPresent(itemsInWishlist, id) ? "red" : "white"
+                        isItemPresent(itemsInWishlist, _id) ? "red" : "white"
                       }`,
                     }}
                     onClick={() =>
-                      isItemPresent(itemsInWishlist, id)
+                      isItemPresent(itemsInWishlist, _id)
                         ? dataDispatch({
                             type: "REMOVE_FROM_WISHLIST",
-                            payload: id,
+                            payload: _id,
                           })
                         : dataDispatch({
                             type: "ADD_TO_WISHLIST",
                             payload: {
-                              id,
+                              _id,
                               name,
                               image,
                               price,
@@ -185,14 +185,14 @@ export const ProductListing = () => {
                     ? "Go to Cart"
                     : "Add to Cart"}
                 </button> */}
-                {!isItemPresent(itemsInCart, id) ? (
+                {!isItemPresent(itemsInCart, _id) ? (
                   <button
                     className="btn-outline btn-sm"
                     onClick={() =>
                       dataDispatch({
                         type: "ADD_TO_CART",
                         payload: {
-                          id,
+                          _id,
                           name,
                           image,
                           price,
@@ -208,7 +208,7 @@ export const ProductListing = () => {
                   </button>
                 ) : null}
 
-                {isItemPresent(itemsInCart, id) ? (
+                {isItemPresent(itemsInCart, _id) ? (
                   <Link to="/cart">
                     <button className="btn-outline btn-sm">Go to Cart</button>
                   </Link>

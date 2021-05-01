@@ -6,16 +6,16 @@ import "../Wishlist/Wishlist.css";
 export const Wishlist = () => {
   const { state, dataDispatch } = useData();
 
-  const increaseQtyInCartAndRemoveFromWishlist = (id) => {
+  const increaseQtyInCartAndRemoveFromWishlist = (_id) => {
     dataDispatch({
       type: "ADD_ITEM_WITH_INCREASED_QUANTITY",
-      payload: id,
+      payload: _id,
     });
-    dataDispatch({ type: "REMOVE_FROM_WISHLIST", payload: id });
+    dataDispatch({ type: "REMOVE_FROM_WISHLIST", payload: _id });
   };
 
   const moveToCartAndRemoveFromWishlist = (
-    id,
+    _id,
     name,
     image,
     price,
@@ -25,7 +25,7 @@ export const Wishlist = () => {
     dataDispatch({
       type: "ADD_TO_CART",
       payload: {
-        id,
+        _id,
         name,
         image,
         price,
@@ -34,7 +34,7 @@ export const Wishlist = () => {
         quantity: 1,
       },
     });
-    dataDispatch({ type: "REMOVE_FROM_WISHLIST", payload: id });
+    dataDispatch({ type: "REMOVE_FROM_WISHLIST", payload: _id });
   };
 
   return (
@@ -46,9 +46,9 @@ export const Wishlist = () => {
         </div>
         <div className="wishlisted-items">
           {state.itemsInWishlist.map(
-            ({ id, name, image, price, productName, inStock }) => (
+            ({ _id, name, image, price, productName, inStock }) => (
               <div
-                key={id}
+                key={_id}
                 style={{
                   border: "1px solid #e5e7eb",
                   borderRadius: "0.5rem",
@@ -66,7 +66,7 @@ export const Wishlist = () => {
                     onClick={() =>
                       dataDispatch({
                         type: "REMOVE_FROM_WISHLIST",
-                        payload: id,
+                        payload: _id,
                       })
                     }
                   >
@@ -83,10 +83,10 @@ export const Wishlist = () => {
                 <button
                   className="btn-outline btn-sm"
                   onClick={() =>
-                    isItemPresent(state.itemsInCart, id)
-                      ? increaseQtyInCartAndRemoveFromWishlist(id)
+                    isItemPresent(state.itemsInCart, _id)
+                      ? increaseQtyInCartAndRemoveFromWishlist(_id)
                       : moveToCartAndRemoveFromWishlist(
-                          id,
+                          _id,
                           name,
                           image,
                           price,
