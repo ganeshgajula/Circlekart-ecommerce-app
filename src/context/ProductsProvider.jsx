@@ -10,6 +10,7 @@ export const ProductsProvider = ({ children }) => {
     showInventoryAll: true,
     fastDeliveryOnly: false,
     sortBy: null,
+    searchedKeyword: "",
   };
 
   const [state, dispatch] = useReducer(productsReducer, initialState);

@@ -5,10 +5,10 @@ import {
   ProfileSvg,
   OutlinedHeartSvg,
   OutlinedCartSvg,
-  SearchSvg,
 } from "../Reusable-Svgs/svgs";
 import { Link } from "react-router-dom";
 import { useData } from "../../context/DataProvider";
+import { SearchBar } from "../../components/SearchBar/SearchBar";
 
 export function Navbar() {
   const {
@@ -21,14 +21,23 @@ export function Navbar() {
         <img className="brand-logo" src={logo} alt="brand-logo" />
       </Link>
 
-      <span className="search-field">
+      <SearchBar />
+
+      {/* <span className="search-field">
         {<SearchSvg />}
         <input
           type="text"
           className="search-bar"
+          value={searchedKeyword}
           placeholder="Search for book, author and more"
+          onChange={(e) =>
+            productsDispatch({
+              type: "SEARCH_PRODUCT",
+              payload: e.target.value,
+            })
+          }
         />
-      </span>
+      </span> */}
 
       <ul className="nav-list">
         <li className="nav-item mobile-search">
