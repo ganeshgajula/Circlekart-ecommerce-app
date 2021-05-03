@@ -1,5 +1,4 @@
 import { createContext, useContext, useReducer } from "react";
-// import { products } from "../api/faker-data";
 import { productsReducer } from "../reducer/productsReducer";
 
 export const ProductsContext = createContext();
