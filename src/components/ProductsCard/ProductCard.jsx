@@ -29,7 +29,7 @@ export const ProductCard = ({ ProductsList }) => {
           margin: "1rem",
           padding: "0.9rem",
         }}
-        className="card-with-dismiss"
+        className="card-with-dismiss card-vertical"
       >
         <img src={image} width="100%" height="auto" alt={productName} />
         <span className="close-btn-on-card">
@@ -63,45 +63,53 @@ export const ProductCard = ({ ProductsList }) => {
             <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.27 2 8.5C2 5.41 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.08C13.09 3.81 14.76 3 16.5 3C19.58 3 22 5.41 22 8.5c0 3.77-3.4 6.86-8.55 11.53L12 21.35z"></path>
           </svg>
         </span>
-        <h4> {name} </h4>
-        <div>Rs. {price}</div>
-        {inStock && <div> In Stock </div>}
-        {!inStock && <div> Out of Stock </div>}
-        <div>{level}</div>
-        {fastDelivery ? (
-          <div> Fast Delivery </div>
-        ) : (
-          <div> 3 days minimum </div>
-        )}
+        <div className="text-container">
+          <div className="pname">
+            <h4> {name} </h4>
+            <div>Rs. {price}</div>
+          </div>
+          <div className="product-availability-info">
+            {inStock && <div> In Stock </div>}
+            {!inStock && <div> Out of Stock </div>}
+            <div>{level}</div>
+            {fastDelivery ? (
+              <div> Fast Delivery </div>
+            ) : (
+              <div> 3 days minimum </div>
+            )}
+          </div>
 
-        {!isItemPresent(itemsInCart, _id) ? (
-          <button
-            className="btn-outline btn-sm"
-            onClick={() =>
-              dataDispatch({
-                type: "ADD_TO_CART",
-                payload: {
-                  _id,
-                  name,
-                  image,
-                  price,
-                  productName,
-                  inStock,
-                  fastDelivery,
-                  quantity: 1,
-                },
-              })
-            }
-          >
-            Add to Cart
-          </button>
-        ) : null}
+          <div>
+            {!isItemPresent(itemsInCart, _id) ? (
+              <button
+                className="btn-outline btn-sm"
+                onClick={() =>
+                  dataDispatch({
+                    type: "ADD_TO_CART",
+                    payload: {
+                      _id,
+                      name,
+                      image,
+                      price,
+                      productName,
+                      inStock,
+                      fastDelivery,
+                      quantity: 1,
+                    },
+                  })
+                }
+              >
+                Add to Cart
+              </button>
+            ) : null}
 
-        {isItemPresent(itemsInCart, _id) ? (
-          <Link to="/cart">
-            <button className="btn-outline btn-sm">Go to Cart</button>
-          </Link>
-        ) : null}
+            {isItemPresent(itemsInCart, _id) ? (
+              <Link to="/cart">
+                <button className="btn-outline btn-sm">Go to Cart</button>
+              </Link>
+            ) : null}
+          </div>
+        </div>
       </div>
     )
   );

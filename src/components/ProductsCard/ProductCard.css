@@ -12,3 +12,20 @@
 .btn-outline {
   margin-top: 1rem;
 }
+
+.card-vertical {
+  display: flex;
+  flex-direction: column;
+}
+
+.text-container {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  background-color: red;
+  height: 100%;
+}
+
+.product-availability-info {
+  flex-grow: 1;
+}
