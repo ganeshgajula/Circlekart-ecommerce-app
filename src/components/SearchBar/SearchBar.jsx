@@ -1,6 +1,5 @@
 import { SearchSvg } from "../Reusable-Svgs/svgs";
 import { useProducts } from "../../context/ProductsProvider";
-import { SearchedProductPage } from "../../pages/ProductListing/SearchedProduct";
 
 export const SearchBar = () => {
   const {
@@ -20,7 +19,6 @@ export const SearchBar = () => {
           productsDispatch({ type: "SEARCH_PRODUCT", payload: e.target.value })
         }
       />
-      {searchedKeyword !== "" ? <SearchedProductPage /> : null}
     </span>
   );
 };
