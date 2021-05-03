@@ -42,6 +42,16 @@ export const dataReducer = (state, action) => {
         itemsInWishlist: [...state.itemsInWishlist, action.payload],
       };
 
+    case "ADD_TO_WISHLIST_AND_CHECK_FOR_DUPLICATION":
+      return {
+        ...state,
+        itemsInWishlist: state.itemsInWishlist.map(({ _id }) =>
+          _id !== action.payload._id
+            ? state.itemsInWishlist.concat(action.payload)
+            : null
+        ),
+      };
+
     case "REMOVE_FROM_WISHLIST":
       return {
         ...state,

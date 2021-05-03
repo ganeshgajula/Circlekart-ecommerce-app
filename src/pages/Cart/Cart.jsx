@@ -93,7 +93,7 @@ export const Cart = () => {
                       className="btn-outline btn-sm"
                       onClick={() => {
                         dataDispatch({
-                          type: "ADD_TO_WISHLIST",
+                          type: "ADD_TO_WISHLIST_AND_CHECK_FOR_DUPLICATION",
                           payload: {
                             _id,
                             name,
