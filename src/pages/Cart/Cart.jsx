@@ -50,16 +50,26 @@ export const Cart = () => {
                     />
 
                     <span className="cartItem-description">
-                      <h3> {name} </h3>
-                      <div>Rs. {price}</div>
-                      {inStock && <div> In Stock </div>}
-                      {!inStock && <div> Out of Stock </div>}
-
-                      {fastDelivery ? (
-                        <div> Fast Delivery </div>
-                      ) : (
-                        <div> 3 days minimum </div>
-                      )}
+                      <div className="product-info">
+                        <h1 className="product-name"> {name} </h1>
+                        <p className="product-price">Rs. {price}</p>
+                      </div>
+                      <div className="product-availability-info">
+                        {inStock && (
+                          <div className="stock-status"> In Stock </div>
+                        )}
+                        {!inStock && (
+                          <div className="stock-status"> Out of Stock </div>
+                        )}
+                        {fastDelivery ? (
+                          <div className="delivery-status"> Fast Delivery </div>
+                        ) : (
+                          <div className="delivery-status">
+                            {" "}
+                            3 days minimum{" "}
+                          </div>
+                        )}
+                      </div>
                       <button
                         onClick={() =>
                           dataDispatch({ type: "DECREMENT", payload: _id })

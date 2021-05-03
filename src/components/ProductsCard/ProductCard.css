@@ -27,3 +27,21 @@
 .product-availability-info {
   flex-grow: 1;
 }
+
+.product-name {
+  font-size: 1.1rem;
+}
+
+.product-price {
+  margin: 0.2rem 0 0.4rem;
+}
+
+.stock-status {
+  font-size: 0.95rem;
+}
+
+.level-info,
+.delivery-status {
+  margin: 0.4rem 0;
+  font-size: 0.9rem;
+}
