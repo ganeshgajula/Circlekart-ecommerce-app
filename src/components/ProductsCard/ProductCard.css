@@ -1,0 +1,14 @@
+.close-btn-on-card {
+  right: 1.3rem;
+  background-color: #d1d5db;
+  padding: 0.4rem 0.4rem 0.2rem;
+  border-radius: 50%;
+}
+
+.close-btn-on-card > svg {
+  cursor: pointer;
+}
+
+.btn-outline {
+  margin-top: 1rem;
+}
