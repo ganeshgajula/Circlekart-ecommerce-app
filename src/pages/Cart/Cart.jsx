@@ -1,9 +1,13 @@
+import React from "react";
 import { Navbar } from "../../components/Navbar/Navbar";
 import { useData } from "../../context/DataProvider";
 import "../Cart/Cart.css";
 
 export const Cart = () => {
-  const { state, dataDispatch } = useData();
+  const {
+    state: { itemsInCart },
+    dataDispatch,
+  } = useData();
 
   const getTotal = (cartItems) =>
     cartItems.reduce((total, value) => total + value.price * value.quantity, 0);
@@ -15,13 +19,13 @@ export const Cart = () => {
         <div className="cartItems-section">
           <div className="cartValue-msg">
             <span className="cart-items-qty">
-              My Cart ({state.itemsInCart.length} items)
+              My Cart ({itemsInCart.length} items)
             </span>
             <span className="total-cart-value">
-              Total: Rs.{getTotal(state.itemsInCart)}
+              Total: Rs.{getTotal(itemsInCart)}
             </span>
           </div>
-          {state.itemsInCart.map(
+          {itemsInCart.map(
             ({
               _id,
               name,
@@ -70,23 +74,53 @@ export const Cart = () => {
                           </div>
                         )}
                       </div>
-                      <button
-                        onClick={() =>
-                          dataDispatch({ type: "DECREMENT", payload: _id })
-                        }
-                        className="btn-outline btn-sm count-btn"
-                      >
-                        -
-                      </button>
-                      <span>{quantity}</span>
-                      <button
-                        onClick={() =>
-                          dataDispatch({ type: "INCREMENT", payload: _id })
-                        }
-                        className="btn-outline btn-sm count-btn"
-                      >
-                        +
-                      </button>
+                      <div className="cart-btns">
+                        {itemsInCart.map((product) =>
+                          product.quantity < 2 ? (
+                            <svg
+                              width="1.6rem"
+                              height="1.6rem"
+                              className="delete-icon"
+                              viewBox="0 0 24 24"
+                              onClick={() =>
+                                dataDispatch({
+                                  type: "REMOVE_FROM_CART",
+                                  payload: _id,
+                                })
+                              }
+                            >
+                              <path
+                                d="M19 4h-3.5l-1-1h-5l-1 1H5v2h14M6 19a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V7H6v12z"
+                                fill="currentColor"
+                              ></path>
+                            </svg>
+                          ) : null
+                        )}
+                        {itemsInCart.map((product) =>
+                          product.quantity >= 2 ? (
+                            <button
+                              onClick={() =>
+                                dataDispatch({
+                                  type: "DECREMENT",
+                                  payload: _id,
+                                })
+                              }
+                              className="btn-outline btn-sm count-btn"
+                            >
+                              -
+                            </button>
+                          ) : null
+                        )}
+                        <span className="quantity-count">{quantity}</span>
+                        <button
+                          onClick={() =>
+                            dataDispatch({ type: "INCREMENT", payload: _id })
+                          }
+                          className="btn-outline btn-sm count-btn"
+                        >
+                          +
+                        </button>
+                      </div>
                     </span>
                   </div>
 
@@ -130,11 +164,11 @@ export const Cart = () => {
         <aside>
           <div className="checkout-panel">
             <div className="checkout-header">
-              PRICE DETAILS <span>({state.itemsInCart.length} Items)</span>
+              PRICE DETAILS <span>({itemsInCart.length} Items)</span>
             </div>
             <div className="checkout-field">
               <span>Total MRP</span>
-              <span>Rs.{getTotal(state.itemsInCart)}</span>
+              <span>Rs.{getTotal(itemsInCart)}</span>
             </div>
             <div className="checkout-field">
               <span>Delivery Fee</span>
@@ -142,7 +176,7 @@ export const Cart = () => {
             </div>
             <div className="checkout-field">
               <span>Total Amount</span>
-              <span>Rs.{getTotal(state.itemsInCart)}</span>
+              <span>Rs.{getTotal(itemsInCart)}</span>
             </div>
           </div>
         </aside>

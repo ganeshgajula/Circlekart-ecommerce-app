@@ -47,7 +47,7 @@ export const dataReducer = (state, action) => {
         ...state,
         itemsInWishlist: state.itemsInWishlist.map(({ _id }) =>
           _id !== action.payload._id
-            ? state.itemsInWishlist.concat(action.payload)
+            ? [...state.itemsInWishlist, action.payload]
             : null
         ),
       };

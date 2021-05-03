@@ -72,6 +72,19 @@
   font-size: 0.9rem;
 }
 
+.delete-icon {
+  margin-bottom: -0.42rem;
+}
+
+.quantity-count {
+  padding: 0.4rem;
+}
+
+/* .cart-btns {
+  display: flex;
+  align-items: center;
+} */
+
 .product-name {
   font-size: 1.1rem;
 }
