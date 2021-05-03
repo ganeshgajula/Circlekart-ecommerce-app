@@ -18,11 +18,9 @@
   flex-direction: column;
 }
 
-.text-container {
+.product-description-container {
   display: flex;
   flex-direction: column;
-  flex-grow: 1;
-  background-color: red;
   height: 100%;
 }
 
