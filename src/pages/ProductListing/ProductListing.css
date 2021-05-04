@@ -23,15 +23,15 @@
   position: fixed;
 }
 
-label {
+.form-label {
   display: block;
+  cursor: pointer;
 }
 
 .products-area {
   margin-left: 18rem;
   display: grid;
   grid-template-columns: repeat(4, 0.9fr);
-  /* grid-gap: 1rem; */
 }
 
 .btn-outline {

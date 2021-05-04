@@ -47,7 +47,7 @@ export const ProductListing = () => {
         <aside className="side-pannel">
           <fieldset>
             <legend>Sort By</legend>
-            <label htmlFor="sort">
+            <label className="form-label">
               <input
                 type="radio"
                 name="sort"
@@ -61,7 +61,7 @@ export const ProductListing = () => {
               />
               Price - High to Low
             </label>
-            <label htmlFor="sort">
+            <label className="form-label">
               <input
                 type="radio"
                 name="sort"
@@ -79,7 +79,7 @@ export const ProductListing = () => {
 
           <fieldset>
             <legend>Filters</legend>
-            <label htmlFor="outOfStock">
+            <label className="form-label">
               <input
                 type="checkbox"
                 onChange={() => productsDispatch({ type: "TOGGLE_STOCK" })}
@@ -87,7 +87,7 @@ export const ProductListing = () => {
               />
               Include Out of Stock
             </label>
-            <label htmlFor="fastDelivery">
+            <label className="form-label">
               <input
                 type="checkbox"
                 onChange={() => productsDispatch({ type: "TOGGLE_DELIVERY" })}
