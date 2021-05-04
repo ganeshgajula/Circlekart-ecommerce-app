@@ -3,15 +3,43 @@ import { Navbar } from "../../components/Navbar/Navbar";
 import { useData } from "../../context/DataProvider";
 import "../Cart/Cart.css";
 import { DeleteSvg } from "../../components/Reusable-Svgs/svgs";
+import { isItemPresent } from "../../components/utils/utils";
 
 export const Cart = () => {
   const {
-    state: { itemsInCart },
+    state: { itemsInCart, itemsInWishlist },
     dataDispatch,
   } = useData();
 
   const getTotal = (cartItems) =>
     cartItems.reduce((total, value) => total + value.price * value.quantity, 0);
+
+  const addToWishlistAndRemoveFromCart = (
+    _id,
+    name,
+    image,
+    price,
+    productName,
+    inStock,
+    fastDelivery
+  ) => {
+    dataDispatch({
+      type: "ADD_TO_WISHLIST",
+      payload: {
+        _id,
+        name,
+        image,
+        price,
+        productName,
+        inStock,
+        fastDelivery,
+      },
+    });
+    dataDispatch({
+      type: "REMOVE_FROM_CART",
+      payload: _id,
+    });
+  };
 
   return (
     <div>
@@ -108,34 +136,38 @@ export const Cart = () => {
                   </div>
 
                   <div className="action-btns">
+                    {quantity > 1 ? (
+                      <button
+                        className="btn-outline btn-sm"
+                        onClick={() =>
+                          dataDispatch({
+                            type: "REMOVE_FROM_CART",
+                            payload: _id,
+                          })
+                        }
+                      >
+                        Remove
+                      </button>
+                    ) : null}
+
                     <button
                       className="btn-outline btn-sm"
                       onClick={() =>
-                        dataDispatch({ type: "REMOVE_FROM_CART", payload: _id })
+                        !isItemPresent(itemsInWishlist, _id)
+                          ? addToWishlistAndRemoveFromCart(
+                              _id,
+                              name,
+                              image,
+                              price,
+                              productName,
+                              inStock,
+                              fastDelivery
+                            )
+                          : dataDispatch({
+                              type: "REMOVE_FROM_CART",
+                              payload: _id,
+                            })
                       }
-                    >
-                      Remove
-                    </button>
-                    <button
-                      className="btn-outline btn-sm"
-                      onClick={() => {
-                        dataDispatch({
-                          type: "ADD_TO_WISHLIST_AND_CHECK_FOR_DUPLICATION",
-                          payload: {
-                            _id,
-                            name,
-                            image,
-                            price,
-                            productName,
-                            inStock,
-                            fastDelivery,
-                          },
-                        });
-                        dataDispatch({
-                          type: "REMOVE_FROM_CART",
-                          payload: _id,
-                        });
-                      }}
                     >
                       Move to wishlist
                     </button>
