@@ -28,10 +28,16 @@ export const ProductCard = ({ ProductsList }) => {
           borderRadius: "0.5rem",
           margin: "1rem",
           padding: "0.9rem",
+          opacity: !inStock ? 0.6 : 1,
         }}
         className="card-with-dismiss card-vertical"
       >
         <img src={image} width="100%" height="auto" alt={productName} />
+        {!inStock ? (
+          <span class="badge-item-sm removed-bdg bdg-card-position">
+            Sold Out
+          </span>
+        ) : null}
         <span className="close-btn-on-card">
           <svg
             width="1.5rem"
@@ -98,6 +104,8 @@ export const ProductCard = ({ ProductsList }) => {
                     },
                   })
                 }
+                disabled={!inStock ? true : false}
+                style={{ cursor: !inStock ? "not-allowed" : "pointer" }}
               >
                 Add to Cart
               </button>
