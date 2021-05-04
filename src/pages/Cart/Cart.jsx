@@ -2,6 +2,7 @@ import React from "react";
 import { Navbar } from "../../components/Navbar/Navbar";
 import { useData } from "../../context/DataProvider";
 import "../Cart/Cart.css";
+import { DeleteSvg } from "../../components/Reusable-Svgs/svgs";
 
 export const Cart = () => {
   const {
@@ -75,43 +76,25 @@ export const Cart = () => {
                         )}
                       </div>
                       <div className="cart-btns">
-                        {itemsInCart.map((product) =>
-                          product.quantity < 2 ? (
-                            <svg
-                              width="1.6rem"
-                              height="1.6rem"
-                              className="delete-icon"
-                              viewBox="0 0 24 24"
-                              onClick={() =>
-                                dataDispatch({
+                        <button
+                          onClick={() =>
+                            quantity < 2
+                              ? dataDispatch({
                                   type: "REMOVE_FROM_CART",
                                   payload: _id,
                                 })
-                              }
-                            >
-                              <path
-                                d="M19 4h-3.5l-1-1h-5l-1 1H5v2h14M6 19a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V7H6v12z"
-                                fill="currentColor"
-                              ></path>
-                            </svg>
-                          ) : null
-                        )}
-                        {itemsInCart.map((product) =>
-                          product.quantity >= 2 ? (
-                            <button
-                              onClick={() =>
-                                dataDispatch({
+                              : dataDispatch({
                                   type: "DECREMENT",
                                   payload: _id,
                                 })
-                              }
-                              className="btn-outline btn-sm count-btn"
-                            >
-                              -
-                            </button>
-                          ) : null
-                        )}
+                          }
+                          className="btn-outline btn-sm count-btn"
+                        >
+                          {quantity < 2 ? <DeleteSvg /> : "-"}
+                        </button>
+
                         <span className="quantity-count">{quantity}</span>
+
                         <button
                           onClick={() =>
                             dataDispatch({ type: "INCREMENT", payload: _id })
