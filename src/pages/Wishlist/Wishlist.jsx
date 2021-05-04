@@ -101,6 +101,8 @@ export const Wishlist = () => {
                             inStock
                           )
                     }
+                    style={{ cursor: !inStock ? "not-allowed" : "pointer" }}
+                    disabled={!inStock ? true : false}
                   >
                     Move to Cart
                   </button>
