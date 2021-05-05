@@ -21,23 +21,19 @@ export function Navbar() {
         <img className="brand-logo" src={logo} alt="brand-logo" />
       </Link>
 
-      <SearchBar />
+      <ul className="nav-links">
+        <Link
+          to="/"
+          style={{
+            textDecoration: "none",
+            color: "#000",
+          }}
+        >
+          <li className="nav-link">Home</li>
+        </Link>
+      </ul>
 
-      {/* <span className="search-field">
-        {<SearchSvg />}
-        <input
-          type="text"
-          className="search-bar"
-          value={searchedKeyword}
-          placeholder="Search for book, author and more"
-          onChange={(e) =>
-            productsDispatch({
-              type: "SEARCH_PRODUCT",
-              payload: e.target.value,
-            })
-          }
-        />
-      </span> */}
+      <SearchBar />
 
       <ul className="nav-list">
         <li className="nav-item mobile-search">
@@ -48,7 +44,7 @@ export function Navbar() {
             ></path>
           </svg>
         </li>
-        <Link to="/products">
+        <Link to="">
           <li className="nav-item">{<ProfileSvg />}</li>
         </Link>
         <Link to="/wishlist">

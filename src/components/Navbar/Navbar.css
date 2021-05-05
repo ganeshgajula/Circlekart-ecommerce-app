@@ -1,5 +1,21 @@
 .navbar {
-  padding: 1rem 2.5rem;
+  padding: 0.5rem 2.5rem;
+}
+
+.nav-links {
+  display: flex;
+  list-style: none;
+  text-decoration: none;
+  padding-left: 0;
+}
+
+.nav-link:hover {
+  color: var(--primary-color);
+}
+
+.nav-element {
+  text-decoration: none;
+  cursor: pointer;
 }
 
 .nav-item {
