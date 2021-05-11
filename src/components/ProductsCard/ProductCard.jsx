@@ -32,7 +32,9 @@ export const ProductCard = ({ ProductsList }) => {
         }}
         className="card-with-dismiss card-vertical"
       >
-        <img src={image} width="100%" height="auto" alt={productName} />
+        <Link to={`/product/${_id}`}>
+          <img src={image} width="100%" height="auto" alt={productName} />
+        </Link>
         {!inStock ? (
           <span class="badge-item-sm removed-bdg bdg-card-position">
             Sold Out
