@@ -40,8 +40,8 @@ export const ProductCard = ({ ProductsList }) => {
         ) : null}
         <span className="close-btn-on-card">
           <svg
-            width="1.5rem"
-            height="1.5rem"
+            width="1.3rem"
+            height="1.3rem"
             viewBox="0 0 24 24"
             style={{
               fill: `${isItemPresent(itemsInWishlist, _id) ? "red" : "white"}`,
