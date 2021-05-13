@@ -6,17 +6,16 @@ import { ProductDetailCard } from "../../components/ProductDetailCard/ProductDet
 export const ProductDetail = () => {
   const { productId } = useParams();
 
-  const { data } = useProducts();
+  const {
+    data: { products },
+  } = useProducts();
 
   const getProductDetails = (products, productId) => {
     return products.find((product) => product._id === productId);
   };
-  const product = getProductDetails(data.products, productId);
+  const product = getProductDetails(products, productId);
 
-  return (
-    <div>
-      <h1>Welcome to product details page</h1>
-      {<ProductDetailCard {...product} />}
-    </div>
-  );
+  console.log(product);
+
+  return <ProductDetailCard {...product} />;
 };
