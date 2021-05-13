@@ -36,7 +36,7 @@ export const ProductCard = ({ ProductsList }) => {
           <img src={image} width="100%" height="auto" alt={productName} />
         </Link>
         {!inStock ? (
-          <span class="badge-item-sm removed-bdg bdg-card-position">
+          <span className="badge-item-sm removed-bdg bdg-card-position">
             Sold Out
           </span>
         ) : null}
@@ -73,7 +73,12 @@ export const ProductCard = ({ ProductsList }) => {
         </span>
         <div className="product-description-container">
           <div className="product-info">
-            <h1 className="product-name"> {name} </h1>
+            <Link
+              to={`/product/${_id}`}
+              style={{ textDecoration: "none", color: "inherit" }}
+            >
+              <h1 className="product-name"> {name} </h1>
+            </Link>
             <p className="product-price">Rs. {price}</p>
           </div>
           <div className="product-availability-info">
