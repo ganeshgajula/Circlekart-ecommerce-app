@@ -18,7 +18,7 @@ export const Signup = () => {
 
   const [signupState, dispatch] = useReducer(signupReducer, initialState);
 
-  const { setLogin } = useAuth();
+  const { setLogin, setUsername, setUserId } = useAuth();
 
   const signUpHandler = async (e) => {
     e.preventDefault();
@@ -34,11 +34,14 @@ export const Signup = () => {
     if (status === 201) {
       console.log(data);
       setLogin(true);
+      setUsername(data.savedUser.firstname);
+      setUserId(data.savedUser._id);
       localStorage?.setItem(
         "userInfo",
         JSON.stringify({
           isUserLoggedIn: true,
           username: data.savedUser.firstname,
+          userId: data.savedUser._id,
         })
       );
       navigate(state?.from ? state.from : "/");

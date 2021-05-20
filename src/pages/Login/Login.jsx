@@ -7,7 +7,7 @@ import "./Login.css";
 export const Login = () => {
   const { state } = useLocation();
   const navigate = useNavigate();
-  const { isUserLoggedIn, setLogin } = useAuth();
+  const { isUserLoggedIn, setLogin, setUserId, setUsername } = useAuth();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -23,22 +23,27 @@ export const Login = () => {
     console.log(data);
     if (status === 200) {
       setLogin(true);
+      setUserId(data.userDetails.userId);
+      setUsername(data.userDetails.firstname);
       localStorage?.setItem(
         "userInfo",
         JSON.stringify({
           isUserLoggedIn: true,
           username: data.userDetails.firstname,
+          userId: data.userDetails.userId,
         })
       );
       navigate(state?.from ? state.from : "/");
     }
   };
 
-  function logoutHandler() {
+  const logoutHandler = () => {
     localStorage?.removeItem("userInfo");
     setLogin(false);
+    setUserId("");
+    setUsername("");
     navigate("/");
-  }
+  };
 
   return (
     <div>
@@ -61,6 +66,7 @@ export const Login = () => {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
+
             <button type="submit" className="btn-sm btn-primary">
               Login
             </button>
