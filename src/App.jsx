@@ -12,6 +12,7 @@ import { useProducts } from "./context/ProductsProvider";
 import axios from "axios";
 
 import { useAuth } from "./context/AuthProvider";
+import { Signup } from "./pages/Signup/Signup";
 
 const App = () => {
   const { productsDispatch } = useProducts();
@@ -43,6 +44,7 @@ const App = () => {
     <div className="App">
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
         <Route path="/products" element={<ProductListing />} />
         <PrivateRoute path="/wishlist" element={<Wishlist />} />

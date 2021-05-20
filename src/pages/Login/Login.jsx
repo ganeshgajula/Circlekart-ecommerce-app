@@ -1,23 +1,41 @@
+import axios from "axios";
 import React, { useState } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation, Link } from "react-router-dom";
 import { useAuth } from "../../context/AuthProvider";
 import "./Login.css";
 
 export const Login = () => {
   const { state } = useLocation();
   const navigate = useNavigate();
-  const { isUserLoggedIn, loginUserWithCredentials, setLogin } = useAuth();
+  const { isUserLoggedIn, setLogin } = useAuth();
 
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  function loginHandler() {
-    loginUserWithCredentials(username, password);
-    navigate(state?.from ? state.from : "/");
-  }
+  const loginHandler = async (e) => {
+    e.preventDefault();
+    const { data, status } = await axios({
+      method: "POST",
+      url: "https://api-circlekart.herokuapp.com/users/authenticate",
+      headers: { email: email, password: password },
+    });
+
+    console.log(data);
+    if (status === 200) {
+      setLogin(true);
+      localStorage?.setItem(
+        "userInfo",
+        JSON.stringify({
+          isUserLoggedIn: true,
+          username: data.userDetails.firstname,
+        })
+      );
+      navigate(state?.from ? state.from : "/");
+    }
+  };
 
   function logoutHandler() {
-    localStorage.removeItem("login");
+    localStorage?.removeItem("userInfo");
     setLogin(false);
     navigate("/");
   }
@@ -27,13 +45,13 @@ export const Login = () => {
       {!isUserLoggedIn ? (
         <div className="login-container">
           <h1>Login</h1>
-          <form>
+          <form onSubmit={loginHandler}>
             <input
-              type="text"
+              type="email"
               className="input-area"
-              placeholder="Enter username"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
+              placeholder="Enter email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
             />
 
             <input
@@ -43,10 +61,16 @@ export const Login = () => {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
+            <button type="submit" className="btn-sm btn-primary">
+              Login
+            </button>
           </form>
-          <button onClick={loginHandler} className="btn-sm btn-primary">
-            Login
-          </button>
+          <p>
+            Don't have an account ?{" "}
+            <Link style={{ color: "inherit" }} to="/signup">
+              Sign up Now
+            </Link>
+          </p>
         </div>
       ) : (
         <div className="login-container">
