@@ -51,14 +51,14 @@ export function Navbar() {
           <div className="action-container">
             <li className="nav-item">{<ProfileSvg />}</li>
             <span className="user-title">
-              {username ? `Hi ${username}` : null}
+              {username ? `Hi, ${username}` : null}
             </span>
           </div>
         </Link>
         <Link to="/wishlist">
           <li className="nav-item badge-on-icon-container">
             {<OutlinedHeartSvg />}
-            <span className="icon-badge blue ic-bdg-heart-top">
+            <span className="icon-badge blue ic-badge-heart-top">
               {isUserLoggedIn ? itemsInWishlist.length : 0}
             </span>
           </li>
@@ -66,7 +66,7 @@ export function Navbar() {
         <Link to="/cart">
           <li className="nav-item badge-on-icon-container">
             {<OutlinedCartSvg />}
-            <span className="icon-badge blue ic-bdg-cart-top">
+            <span className="icon-badge blue ic-badge-cart-top">
               {isUserLoggedIn ? itemsInCart.length : 0}
             </span>
           </li>
