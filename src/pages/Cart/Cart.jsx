@@ -3,14 +3,15 @@ import { Navbar } from "../../components/Navbar/Navbar";
 import { useData } from "../../context/DataProvider";
 import { useAuth } from "../../context/AuthProvider";
 import { DeleteSvg } from "../../components/Reusable-Svgs/svgs";
-import { isItemPresent } from "../../components/utils/utils";
 import { EmptyCart } from "../../components/EmptyCart/EmptyCart";
 import {
+  isItemPresent,
   addProductToWishlist,
   removeProductFromCart,
   incrementItemQuantityInCart,
   decrementItemQuantityInCart,
 } from "../../components/utils/utils";
+import { Link } from "react-router-dom";
 import "../Cart/Cart.css";
 
 export const Cart = () => {
@@ -41,127 +42,126 @@ export const Cart = () => {
                 Total: Rs.{getTotal(itemsInCart)}
               </span>
             </div>
-            {itemsInCart.map(({ productId, quantity, isActive }) =>
-              quantity === 0 ? null : (
-                <div
-                  key={productId._id}
-                  style={{
-                    border: "1px solid #e5e7eb",
-                    borderRadius: "0.5rem",
-                    margin: "1rem",
-                    padding: "0.9rem",
-                  }}
-                >
-                  <div className="cartItem">
-                    <img
-                      src={productId.image}
-                      alt="product"
-                      className="cartItem-img"
-                    />
+            {itemsInCart.map(
+              ({
+                productId: { _id, image, name, price, inStock, fastDelivery },
+                quantity,
+              }) =>
+                quantity === 0 ? null : (
+                  <div
+                    key={_id}
+                    style={{
+                      border: "1px solid #e5e7eb",
+                      borderRadius: "0.5rem",
+                      margin: "1rem",
+                      padding: "0.9rem",
+                    }}
+                  >
+                    <div className="cartItem">
+                      <Link to={`/product/${_id}`}>
+                        <img
+                          src={image}
+                          alt="product"
+                          className="cartItem-img"
+                        />
+                      </Link>
 
-                    <span className="cartItem-description">
-                      <div className="product-info">
-                        <h1 className="product-name"> {productId.name} </h1>
-                        <p className="product-price">Rs. {productId.price}</p>
-                      </div>
-                      <div className="product-availability-info">
-                        {productId.inStock && (
-                          <div className="stock-status"> In Stock </div>
-                        )}
-                        {!productId.inStock && (
-                          <div className="stock-status"> Out of Stock </div>
-                        )}
-                        {productId.fastDelivery ? (
-                          <div className="delivery-status"> Fast Delivery </div>
-                        ) : (
-                          <div className="delivery-status">
-                            {" "}
-                            3 days minimum{" "}
-                          </div>
-                        )}
-                      </div>
-                      <div className="cart-btns">
+                      <span className="cartItem-description">
+                        <div className="product-info">
+                          <Link
+                            to={`/product/${_id}`}
+                            style={{ textDecoration: "none", color: "inherit" }}
+                          >
+                            <h1 className="product-name"> {name} </h1>
+                          </Link>
+
+                          <p className="product-price">Rs. {price}</p>
+                        </div>
+                        <div className="product-availability-info">
+                          {inStock && (
+                            <div className="stock-status"> In Stock </div>
+                          )}
+                          {!inStock && (
+                            <div className="stock-status"> Out of Stock </div>
+                          )}
+                          {fastDelivery ? (
+                            <div className="delivery-status">
+                              {" "}
+                              Fast Delivery{" "}
+                            </div>
+                          ) : (
+                            <div className="delivery-status">
+                              {" "}
+                              3 days minimum{" "}
+                            </div>
+                          )}
+                        </div>
+                        <div className="cart-btns">
+                          <button
+                            onClick={() =>
+                              quantity < 2
+                                ? removeProductFromCart(
+                                    _id,
+                                    dataDispatch,
+                                    userId
+                                  )
+                                : decrementItemQuantityInCart(
+                                    _id,
+                                    quantity,
+                                    dataDispatch,
+                                    userId
+                                  )
+                            }
+                            className="btn-outline btn-sm count-btn"
+                          >
+                            {quantity < 2 ? <DeleteSvg /> : "-"}
+                          </button>
+
+                          <span className="quantity-count">{quantity}</span>
+
+                          <button
+                            onClick={() =>
+                              incrementItemQuantityInCart(
+                                _id,
+                                quantity,
+                                dataDispatch,
+                                userId
+                              )
+                            }
+                            className="btn-outline btn-sm count-btn"
+                          >
+                            +
+                          </button>
+                        </div>
+                      </span>
+                    </div>
+
+                    <div className="action-btns">
+                      {quantity > 1 ? (
                         <button
+                          className="btn-outline btn-sm"
                           onClick={() =>
-                            quantity < 2
-                              ? removeProductFromCart(
-                                  productId._id,
-                                  dataDispatch,
-                                  userId
-                                )
-                              : decrementItemQuantityInCart(
-                                  productId._id,
-                                  quantity,
-                                  dataDispatch,
-                                  userId
-                                )
+                            removeProductFromCart(_id, dataDispatch, userId)
                           }
-                          className="btn-outline btn-sm count-btn"
                         >
-                          {quantity < 2 ? <DeleteSvg /> : "-"}
+                          Remove
                         </button>
+                      ) : null}
 
-                        <span className="quantity-count">{quantity}</span>
-
-                        <button
-                          onClick={() =>
-                            incrementItemQuantityInCart(
-                              productId._id,
-                              quantity,
-                              dataDispatch,
-                              userId
-                            )
-                          }
-                          className="btn-outline btn-sm count-btn"
-                        >
-                          +
-                        </button>
-                      </div>
-                    </span>
-                  </div>
-
-                  <div className="action-btns">
-                    {quantity > 1 ? (
                       <button
                         className="btn-outline btn-sm"
                         onClick={() =>
-                          removeProductFromCart(
-                            productId._id,
-                            dataDispatch,
-                            userId
-                          )
+                          !isItemPresent(itemsInWishlist, _id)
+                            ? addProductToWishlist(_id, dataDispatch, userId) &&
+                              removeProductFromCart(_id, dataDispatch, userId)
+                            : removeProductFromCart(_id, dataDispatch, userId)
                         }
                       >
-                        Remove
+                        Move to wishlist
                       </button>
-                    ) : null}
-
-                    <button
-                      className="btn-outline btn-sm"
-                      onClick={() =>
-                        !isItemPresent(itemsInWishlist, productId._id)
-                          ? addProductToWishlist(
-                              productId._id,
-                              dataDispatch,
-                              userId
-                            ) &&
-                            removeProductFromCart(
-                              productId._id,
-                              dataDispatch,
-                              userId
-                            )
-                          : removeProductFromCart(
-                              productId._id,
-                              dataDispatch,
-                              userId
-                            )
-                      }
-                    >
-                      Move to wishlist
-                    </button>
+                    </div>
                   </div>
-                </div>
-              )
+                )
             )}
           </div>
           <aside>
