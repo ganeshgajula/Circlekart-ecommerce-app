@@ -1,9 +1,14 @@
 import React from "react";
 import "./ProductDetailCard.css";
 import { Navbar } from "../Navbar/Navbar";
-import { isItemPresent } from "../utils/utils";
 import { useData } from "../../context/DataProvider";
+import { useAuth } from "../../context/AuthProvider";
 import { Link } from "react-router-dom";
+import {
+  addProductToCart,
+  addProductToWishlist,
+  isItemPresent,
+} from "../utils/utils";
 
 export const ProductDetailCard = ({
   _id,
@@ -19,6 +24,8 @@ export const ProductDetailCard = ({
     state: { itemsInCart, itemsInWishlist },
     dataDispatch,
   } = useData();
+
+  const { userId } = useAuth();
 
   return (
     <>
@@ -42,21 +49,7 @@ export const ProductDetailCard = ({
               {!isItemPresent(itemsInCart, _id) ? (
                 <button
                   className="btn-primary btn-md"
-                  onClick={() =>
-                    dataDispatch({
-                      type: "ADD_TO_CART",
-                      payload: {
-                        _id,
-                        name,
-                        image,
-                        price,
-                        productName,
-                        inStock,
-                        fastDelivery,
-                        quantity: 1,
-                      },
-                    })
-                  }
+                  onClick={() => addProductToCart(_id, dataDispatch, userId)}
                   disabled={!inStock ? true : false}
                   style={{ cursor: !inStock ? "not-allowed" : "pointer" }}
                 >
@@ -75,18 +68,7 @@ export const ProductDetailCard = ({
                 <button
                   className="btn-outline btn-md"
                   onClick={() =>
-                    dataDispatch({
-                      type: "ADD_TO_WISHLIST",
-                      payload: {
-                        _id,
-                        name,
-                        image,
-                        price,
-                        productName,
-                        inStock,
-                        fastDelivery,
-                      },
-                    })
+                    addProductToWishlist(_id, dataDispatch, userId)
                   }
                 >
                   Add to Wishlist
