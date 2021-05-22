@@ -2,6 +2,11 @@
   margin-top: 1rem;
 }
 
+.card-vertical {
+  display: flex;
+  flex-direction: column;
+}
+
 .close-btn-on-card {
   right: 1.3rem;
   background-color: #d1d5db;
@@ -16,6 +21,16 @@
 .wishlist-area {
   margin: 8rem auto 0;
   max-width: 95%;
+}
+
+.product-description-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.product-info {
+  flex-grow: 1;
 }
 
 .wishlisted-items {
