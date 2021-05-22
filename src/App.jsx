@@ -1,6 +1,6 @@
 import React from "react";
+import axios from "axios";
 import { useEffect } from "react";
-import "./App.css";
 import { Home } from "./pages/Home/Home";
 import { Wishlist } from "./pages/Wishlist/Wishlist";
 import { Cart } from "./pages/Cart/Cart";
@@ -10,7 +10,7 @@ import { ProductDetail } from "./pages/ProductDetail/ProductDetail";
 import { Routes, Route, Navigate } from "react-router-dom";
 import { useProducts } from "./context/ProductsProvider";
 import { useData } from "./context/DataProvider";
-import axios from "axios";
+import "./App.css";
 
 import { useAuth } from "./context/AuthProvider";
 import { Signup } from "./pages/Signup/Signup";
