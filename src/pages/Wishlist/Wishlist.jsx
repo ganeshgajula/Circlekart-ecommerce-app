@@ -2,42 +2,17 @@ import { Navbar } from "../../components/Navbar/Navbar";
 import { useData } from "../../context/DataProvider";
 import { useAuth } from "../../context/AuthProvider";
 import { isItemPresent } from "../../components/utils/utils";
-import "../Wishlist/Wishlist.css";
 import { EmptyWishlist } from "../../components/EmptyWishlist/EmptyWishlist";
-import axios from "axios";
+import {
+  addProductToCart,
+  removeProductFromWishlist,
+} from "../../components/utils/utils";
+import "../Wishlist/Wishlist.css";
 
 export const Wishlist = () => {
   const { state, dataDispatch } = useData();
 
   const { userId } = useAuth();
-
-  const addProductToCart = async (_id) => {
-    const {
-      data: { cart },
-      status,
-    } = await axios.post(
-      `https://api-circlekart.herokuapp.com/carts/${userId}/cart`,
-      { _id, quantity: 1, isActive: true }
-    );
-
-    if (status === 200) {
-      dataDispatch({ type: "LOAD_CART", payload: cart });
-    }
-  };
-
-  const removeProductFromWishlist = async (_id) => {
-    const {
-      data: { wishlist },
-      status,
-    } = await axios.post(
-      `https://api-circlekart.herokuapp.com/wishlists/${userId}/wishlist`,
-      { _id }
-    );
-
-    if (status === 200) {
-      dataDispatch({ type: "LOAD_WISHLIST", payload: wishlist });
-    }
-  };
 
   return (
     <div>
@@ -70,7 +45,13 @@ export const Wishlist = () => {
                     width="1.5rem"
                     height="1.5rem"
                     viewBox="0 0 24 24"
-                    onClick={() => removeProductFromWishlist(productId._id)}
+                    onClick={() =>
+                      removeProductFromWishlist(
+                        productId._id,
+                        dataDispatch,
+                        userId
+                      )
+                    }
                   >
                     <path
                       d="M12 2c5.53 0 10 4.47 10 10s-4.47 10-10 10S2 17.53 2 12S6.47 2 12 2m3.59 5L12 10.59L8.41 7L7 8.41L10.59 12L7 15.59L8.41 17L12 13.41L15.59 17L17 15.59L13.41 12L17 8.41L15.59 7z"
@@ -89,9 +70,21 @@ export const Wishlist = () => {
                     className="btn-outline btn-sm"
                     onClick={() =>
                       isItemPresent(state.itemsInCart, productId._id)
-                        ? removeProductFromWishlist(productId._id)
-                        : addProductToCart(productId._id) &&
-                          removeProductFromWishlist(productId._id)
+                        ? removeProductFromWishlist(
+                            productId._id,
+                            dataDispatch,
+                            userId
+                          )
+                        : addProductToCart(
+                            productId._id,
+                            dataDispatch,
+                            userId
+                          ) &&
+                          removeProductFromWishlist(
+                            productId._id,
+                            dataDispatch,
+                            userId
+                          )
                     }
                     style={{
                       cursor: !productId.inStock ? "not-allowed" : "pointer",

@@ -3,7 +3,11 @@ import { useData } from "../../context/DataProvider";
 import { isItemPresent } from "../utils/utils";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../context/AuthProvider";
-import axios from "axios";
+import {
+  addProductToCart,
+  addProductToWishlist,
+  removeProductFromWishlist,
+} from "../utils/utils";
 import "../ProductsCard/ProductCard.css";
 
 export const ProductCard = ({ ProductsList }) => {
@@ -13,52 +17,6 @@ export const ProductCard = ({ ProductsList }) => {
   } = useData();
 
   const { userId } = useAuth();
-
-  const addProductToCart = async (_id) => {
-    const {
-      data: { cart },
-      status,
-    } = await axios.post(
-      `https://api-circlekart.herokuapp.com/carts/${userId}/cart`,
-      {
-        _id,
-        quantity: 1,
-        isActive: true,
-      }
-    );
-    console.log(cart);
-    if (status === 200) {
-      dataDispatch({ type: "LOAD_CART", payload: cart });
-    }
-  };
-
-  const addProductToWishlist = async (_id) => {
-    const {
-      data: { wishlist },
-      status,
-    } = await axios.post(
-      `https://api-circlekart.herokuapp.com/wishlists/${userId}/wishlist`,
-      { _id, isActive: true }
-    );
-    console.log(wishlist);
-    if (status === 200) {
-      dataDispatch({ type: "LOAD_WISHLIST", payload: wishlist });
-    }
-  };
-
-  const removeProductFromWishlist = async (_id) => {
-    const {
-      data: { wishlist },
-      status,
-    } = await axios.post(
-      `https://api-circlekart.herokuapp.com/wishlists/${userId}/wishlist`,
-      { _id }
-    );
-
-    if (status === 200) {
-      dataDispatch({ type: "LOAD_WISHLIST", payload: wishlist });
-    }
-  };
 
   return ProductsList.map(
     ({
@@ -100,8 +58,8 @@ export const ProductCard = ({ ProductsList }) => {
             }}
             onClick={() =>
               isItemPresent(itemsInWishlist, _id)
-                ? removeProductFromWishlist(_id)
-                : addProductToWishlist(_id)
+                ? removeProductFromWishlist(_id, dataDispatch, userId)
+                : addProductToWishlist(_id, dataDispatch, userId)
             }
           >
             <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.27 2 8.5C2 5.41 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.08C13.09 3.81 14.76 3 16.5 3C19.58 3 22 5.41 22 8.5c0 3.77-3.4 6.86-8.55 11.53L12 21.35z"></path>
@@ -132,7 +90,7 @@ export const ProductCard = ({ ProductsList }) => {
             {!isItemPresent(itemsInCart, _id) ? (
               <button
                 className="btn-outline btn-sm"
-                onClick={() => addProductToCart(_id)}
+                onClick={() => addProductToCart(_id, dataDispatch, userId)}
                 disabled={!inStock ? true : false}
                 style={{ cursor: !inStock ? "not-allowed" : "pointer" }}
               >

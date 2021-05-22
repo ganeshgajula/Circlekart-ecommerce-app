@@ -5,7 +5,12 @@ import { useAuth } from "../../context/AuthProvider";
 import { DeleteSvg } from "../../components/Reusable-Svgs/svgs";
 import { isItemPresent } from "../../components/utils/utils";
 import { EmptyCart } from "../../components/EmptyCart/EmptyCart";
-import axios from "axios";
+import {
+  addProductToWishlist,
+  removeProductFromCart,
+  incrementItemQuantityInCart,
+  decrementItemQuantityInCart,
+} from "../../components/utils/utils";
 import "../Cart/Cart.css";
 
 export const Cart = () => {
@@ -21,62 +26,6 @@ export const Cart = () => {
       (total, value) => total + value.productId.price * value.quantity,
       0
     );
-
-  const incrementQuantity = async (_id, quantity) => {
-    const {
-      data: { cart },
-      status,
-    } = await axios.post(
-      `https://api-circlekart.herokuapp.com/carts/${userId}/cart`,
-      {
-        _id,
-        quantity: quantity + 1,
-        isActive: true,
-      }
-    );
-    if (status === 200) {
-      dataDispatch({ type: "LOAD_CART", payload: cart });
-    }
-  };
-
-  const decrementQuantity = async (_id, quantity) => {
-    const {
-      data: { cart },
-      status,
-    } = await axios.post(
-      `https://api-circlekart.herokuapp.com/carts/${userId}/cart`,
-      { _id, quantity: quantity - 1, isActive: true }
-    );
-    if (status === 200) {
-      dataDispatch({ type: "LOAD_CART", payload: cart });
-    }
-  };
-
-  const removeProductFromCart = async (_id) => {
-    const {
-      data: { cart },
-      status,
-    } = await axios.post(
-      `https://api-circlekart.herokuapp.com/carts/${userId}/cart`,
-      { _id, quantity: 0, isActive: false }
-    );
-    if (status === 200) {
-      dataDispatch({ type: "LOAD_CART", payload: cart });
-    }
-  };
-
-  const addProductToWishlist = async (_id) => {
-    const {
-      data: { wishlist },
-      status,
-    } = await axios.post(
-      `https://api-circlekart.herokuapp.com/wishlists/${userId}/wishlist`,
-      { _id, isActive: true }
-    );
-    if (status === 200) {
-      dataDispatch({ type: "LOAD_WISHLIST", payload: wishlist });
-    }
-  };
 
   return (
     <div>
@@ -135,8 +84,17 @@ export const Cart = () => {
                         <button
                           onClick={() =>
                             quantity < 2
-                              ? removeProductFromCart(productId._id)
-                              : decrementQuantity(productId._id, quantity)
+                              ? removeProductFromCart(
+                                  productId._id,
+                                  dataDispatch,
+                                  userId
+                                )
+                              : decrementItemQuantityInCart(
+                                  productId._id,
+                                  quantity,
+                                  dataDispatch,
+                                  userId
+                                )
                           }
                           className="btn-outline btn-sm count-btn"
                         >
@@ -147,7 +105,12 @@ export const Cart = () => {
 
                         <button
                           onClick={() =>
-                            incrementQuantity(productId._id, quantity)
+                            incrementItemQuantityInCart(
+                              productId._id,
+                              quantity,
+                              dataDispatch,
+                              userId
+                            )
                           }
                           className="btn-outline btn-sm count-btn"
                         >
@@ -161,7 +124,13 @@ export const Cart = () => {
                     {quantity > 1 ? (
                       <button
                         className="btn-outline btn-sm"
-                        onClick={() => removeProductFromCart(productId._id)}
+                        onClick={() =>
+                          removeProductFromCart(
+                            productId._id,
+                            dataDispatch,
+                            userId
+                          )
+                        }
                       >
                         Remove
                       </button>
@@ -171,9 +140,21 @@ export const Cart = () => {
                       className="btn-outline btn-sm"
                       onClick={() =>
                         !isItemPresent(itemsInWishlist, productId._id)
-                          ? addProductToWishlist(productId._id) &&
-                            removeProductFromCart(productId._id)
-                          : removeProductFromCart(productId._id)
+                          ? addProductToWishlist(
+                              productId._id,
+                              dataDispatch,
+                              userId
+                            ) &&
+                            removeProductFromCart(
+                              productId._id,
+                              dataDispatch,
+                              userId
+                            )
+                          : removeProductFromCart(
+                              productId._id,
+                              dataDispatch,
+                              userId
+                            )
                       }
                     >
                       Move to wishlist
