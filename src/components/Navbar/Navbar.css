@@ -20,6 +20,18 @@
 
 .nav-item {
   cursor: pointer;
+  margin: 0 0.2rem;
+}
+
+.action-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.user-title {
+  font-size: 0.85rem;
+  font-weight: 600;
 }
 
 .search-bar {
