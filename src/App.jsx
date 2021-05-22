@@ -9,6 +9,7 @@ import { ProductListing } from "./pages/ProductListing/ProductListing";
 import { ProductDetail } from "./pages/ProductDetail/ProductDetail";
 import { Routes, Route, Navigate } from "react-router-dom";
 import { useProducts } from "./context/ProductsProvider";
+import { useData } from "./context/DataProvider";
 import axios from "axios";
 
 import { useAuth } from "./context/AuthProvider";
@@ -16,8 +17,8 @@ import { Signup } from "./pages/Signup/Signup";
 
 const App = () => {
   const { productsDispatch } = useProducts();
-
-  const { isUserLoggedIn } = useAuth();
+  const { dataDispatch } = useData();
+  const { isUserLoggedIn, userId } = useAuth();
 
   useEffect(() => {
     (async () => {
@@ -31,6 +32,36 @@ const App = () => {
       }
     })();
   }, []);
+
+  useEffect(() => {
+    if (isUserLoggedIn) {
+      (async () => {
+        try {
+          const {
+            data: { cart },
+          } = await axios.get(
+            `https://api-circlekart.herokuapp.com/carts/${userId}/cart`
+          );
+          console.log({ userId });
+          dataDispatch({ type: "LOAD_CART", payload: cart });
+        } catch (error) {
+          console.log(error);
+        }
+
+        try {
+          const {
+            data: { wishlist },
+          } = await axios.get(
+            `https://api-circlekart.herokuapp.com/wishlists/${userId}/wishlist`
+          );
+          console.log({ userId });
+          dataDispatch({ type: "LOAD_WISHLIST", payload: wishlist });
+        } catch (error) {
+          console.log(error);
+        }
+      })();
+    }
+  }, [userId]);
 
   function PrivateRoute({ path, ...props }) {
     return isUserLoggedIn ? (
