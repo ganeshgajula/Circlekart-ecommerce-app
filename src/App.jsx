@@ -10,10 +10,9 @@ import { ProductDetail } from "./pages/ProductDetail/ProductDetail";
 import { Routes, Route, Navigate } from "react-router-dom";
 import { useProducts } from "./context/ProductsProvider";
 import { useData } from "./context/DataProvider";
-import "./App.css";
-
 import { useAuth } from "./context/AuthProvider";
 import { Signup } from "./pages/Signup/Signup";
+import "./App.css";
 
 const App = () => {
   const { productsDispatch } = useProducts();

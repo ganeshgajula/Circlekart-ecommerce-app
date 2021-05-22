@@ -15,7 +15,5 @@ export const ProductDetail = () => {
   };
   const product = getProductDetails(products, productId);
 
-  console.log(product);
-
   return <ProductDetailCard {...product} />;
 };
