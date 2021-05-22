@@ -58,7 +58,14 @@
   gap: 1.5rem;
 }
 
-.ic-bdg-cart-top {
+.ic-badge-heart-top {
+  position: absolute;
+  bottom: 1.2rem;
+  left: 0.9rem;
+}
+
+.ic-badge-cart-top {
+  position: absolute;
   bottom: 1.2rem;
   left: 0.9rem;
 }
