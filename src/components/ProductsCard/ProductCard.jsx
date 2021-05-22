@@ -1,9 +1,9 @@
 import React from "react";
 import { useData } from "../../context/DataProvider";
-import { isItemPresent } from "../utils/utils";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../context/AuthProvider";
 import {
+  isItemPresent,
   addProductToCart,
   addProductToWishlist,
   removeProductFromWishlist,
