@@ -10,6 +10,8 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const loginStatus = JSON.parse(localStorage.getItem("userInfo"));
     loginStatus?.isUserLoggedIn && setLogin(true);
+    loginStatus?.userId && setUserId(loginStatus.userId);
+    loginStatus?.username && setUsername(loginStatus.username);
   }, []);
 
   return (
