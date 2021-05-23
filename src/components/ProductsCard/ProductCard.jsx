@@ -73,7 +73,7 @@ export const ProductCard = ({ ProductsList }) => {
             >
               <h1 className="product-name"> {name} </h1>
             </Link>
-            <p className="product-price">Rs. {price}</p>
+            <p className="product-price-card-view">Rs. {price}</p>
           </div>
           <div className="product-availability-info">
             {inStock && <div className="stock-status"> In Stock </div>}
