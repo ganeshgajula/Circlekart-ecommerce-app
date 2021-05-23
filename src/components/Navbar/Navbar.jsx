@@ -19,59 +19,87 @@ export function Navbar() {
   const { isUserLoggedIn, username } = useAuth();
 
   return (
-    <nav className="navbar">
-      <Link to="/">
-        <img className="brand-logo" src={logo} alt="brand-logo" />
-      </Link>
+    <nav className="navbar-area">
+      <div className="navbar">
+        <Link to="/">
+          <img className="brand-logo" src={logo} alt="brand-logo" />
+        </Link>
 
-      <ul className="nav-links">
-        <Link
-          to="/"
-          style={{
-            textDecoration: "none",
-            color: "#000",
-          }}
-        >
-          <li className="nav-link">Home</li>
-        </Link>
-      </ul>
+        <ul className="nav-links">
+          <Link
+            to="/"
+            style={{
+              textDecoration: "none",
+              color: "#000",
+            }}
+          >
+            <li className="nav-link">Home</li>
+          </Link>
+        </ul>
 
-      <SearchBar />
+        <SearchBar />
 
-      <ul className="nav-list">
-        <li className="nav-item mobile-search">
-          <svg width="1.5rem" height="1.5rem" viewBox="0 0 24 24">
-            <path
-              d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5l-1.5 1.5l-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16A6.5 6.5 0 0 1 3 9.5A6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14S14 12 14 9.5S12 5 9.5 5z"
-              fill="currentColor"
-            ></path>
-          </svg>
-        </li>
-        <Link to="/login">
-          <div className="action-container">
-            <li className="nav-item">{<ProfileSvg />}</li>
-            <span className="user-title">
-              {username ? `Hi, ${username}` : null}
-            </span>
-          </div>
-        </Link>
-        <Link to="/wishlist">
-          <li className="nav-item badge-on-icon-container">
-            {<OutlinedHeartSvg />}
-            <span className="icon-badge blue ic-badge-heart-top">
-              {isUserLoggedIn ? itemsInWishlist.length : 0}
-            </span>
-          </li>
-        </Link>
-        <Link to="/cart">
-          <li className="nav-item badge-on-icon-container">
-            {<OutlinedCartSvg />}
-            <span className="icon-badge blue ic-badge-cart-top">
-              {isUserLoggedIn ? itemsInCart.length : 0}
-            </span>
-          </li>
-        </Link>
-      </ul>
+        <ul className="nav-list">
+          <Link to="/login">
+            <div className="action-container">
+              <li className="nav-item">{<ProfileSvg />}</li>
+              <span className="user-title">
+                {username ? `Hi, ${username}` : null}
+              </span>
+            </div>
+          </Link>
+          <Link to="/wishlist">
+            <li className="nav-item badge-on-icon-container">
+              {<OutlinedHeartSvg />}
+              <span className="icon-badge blue ic-badge-heart-top">
+                {isUserLoggedIn ? itemsInWishlist.length : 0}
+              </span>
+            </li>
+          </Link>
+          <Link to="/cart">
+            <li className="nav-item badge-on-icon-container">
+              {<OutlinedCartSvg />}
+              <span className="icon-badge blue ic-badge-cart-top">
+                {isUserLoggedIn ? itemsInCart.length : 0}
+              </span>
+            </li>
+          </Link>
+        </ul>
+      </div>
+      <div className="mobile-navbar">
+        <div className="user-action-container">
+          <Link to="/">
+            <img className="brand-logo" src={logo} alt="brand-logo" />
+          </Link>
+          <ul className="nav-list">
+            <Link to="/login">
+              <div className="action-container">
+                <li className="nav-item">{<ProfileSvg />}</li>
+                <span className="user-title">
+                  {username ? `Hi, ${username}` : null}
+                </span>
+              </div>
+            </Link>
+            <Link to="/wishlist">
+              <li className="nav-item badge-on-icon-container">
+                {<OutlinedHeartSvg />}
+                <span className="icon-badge blue ic-badge-heart-top">
+                  {isUserLoggedIn ? itemsInWishlist.length : 0}
+                </span>
+              </li>
+            </Link>
+            <Link to="/cart">
+              <li className="nav-item badge-on-icon-container">
+                {<OutlinedCartSvg />}
+                <span className="icon-badge blue ic-badge-cart-top">
+                  {isUserLoggedIn ? itemsInCart.length : 0}
+                </span>
+              </li>
+            </Link>
+          </ul>
+        </div>
+        <SearchBar />
+      </div>
     </nav>
   );
 }

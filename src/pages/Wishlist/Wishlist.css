@@ -58,3 +58,13 @@
 .empty-wishlist-msg2 {
   margin: 1rem 0 0.5rem;
 }
+
+@media (max-width: 500px) {
+  .wishlisted-items {
+    grid-template-columns: repeat(2, 1.5fr);
+  }
+
+  .wishlist-area {
+    margin-top: 1rem;
+  }
+}

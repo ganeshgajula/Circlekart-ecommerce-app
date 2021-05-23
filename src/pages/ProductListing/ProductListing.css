@@ -37,3 +37,18 @@
 .btn-outline {
   margin-top: 1rem;
 }
+
+@media (max-width: 500px) {
+  .side-pannel {
+    display: none;
+  }
+
+  .main-product-area {
+    margin: 1rem auto 0;
+  }
+
+  .products-area {
+    margin: auto;
+    grid-template-columns: repeat(2, 1.5fr);
+  }
+}

@@ -105,3 +105,42 @@
 .empty-cart-msg1 {
   margin: 0.2rem 0 0.5rem;
 }
+
+@media (max-width: 500px) {
+  .cart-area {
+    flex-direction: column;
+    margin: 1rem auto 2rem;
+    max-width: 90%;
+    gap: 1rem;
+  }
+
+  .cartItems-section {
+    max-width: 90%;
+    margin: auto;
+  }
+
+  .cartValue-msg {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .cartItem-img {
+    width: 6rem;
+    height: auto;
+  }
+
+  .count-btn {
+    font-size: 1rem;
+    padding: 0.2rem;
+  }
+
+  .action-btns {
+    gap: 1rem;
+    margin-left: 0;
+  }
+
+  .action-btns > * {
+    font-size: 0.7rem;
+  }
+}
