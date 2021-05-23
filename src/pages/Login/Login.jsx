@@ -2,12 +2,14 @@ import axios from "axios";
 import React, { useState } from "react";
 import { useNavigate, useLocation, Link } from "react-router-dom";
 import { useAuth } from "../../context/AuthProvider";
+import { useData } from "../../context/DataProvider";
 import "./Login.css";
 
 export const Login = () => {
   const { state } = useLocation();
   const navigate = useNavigate();
   const { isUserLoggedIn, setLogin, setUserId, setUsername } = useAuth();
+  const { dataDispatch } = useData();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -42,6 +44,7 @@ export const Login = () => {
     setLogin(false);
     setUserId("");
     setUsername("");
+    dataDispatch({ type: "RESET_APP_ON_LOGOUT" });
     navigate("/");
   };
 
