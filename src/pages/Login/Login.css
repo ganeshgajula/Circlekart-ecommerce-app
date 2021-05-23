@@ -12,3 +12,8 @@
   border-radius: 0.5rem;
   border: 0.5px solid #333;
 }
+
+.btn-primary {
+  width: 100%;
+  margin: auto;
+}
