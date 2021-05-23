@@ -11,6 +11,9 @@ export const dataReducer = (state, action) => {
     case "LOAD_WISHLIST":
       return { ...state, itemsInWishlist: action.payload };
 
+    case "RESET_APP_ON_LOGOUT":
+      return { ...state, itemsInWishlist: [], itemsInCart: [] };
+
     default:
       return state;
   }
