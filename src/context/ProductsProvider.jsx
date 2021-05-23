@@ -6,7 +6,7 @@ export const ProductsContext = createContext();
 export const ProductsProvider = ({ children }) => {
   const initialState = {
     products: [],
-    showInventoryAll: true,
+    showInventoryAll: false,
     fastDeliveryOnly: false,
     sortBy: null,
     searchedKeyword: "",
