@@ -27,13 +27,13 @@ export function Navbar() {
 
         <ul className="nav-links">
           <Link
-            to="/"
+            to="/products"
             style={{
               textDecoration: "none",
               color: "#000",
             }}
           >
-            <li className="nav-link">Home</li>
+            <li className="nav-link">All Products</li>
           </Link>
         </ul>
 
