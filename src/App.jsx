@@ -19,48 +19,54 @@ const App = () => {
   const { dataDispatch } = useData();
   const { isUserLoggedIn, userId } = useAuth();
 
-  useEffect(() => {
-    (async () => {
-      try {
-        const {
-          data: { products },
-        } = await axios.get("https://api-circlekart.herokuapp.com/products");
-        productsDispatch({ type: "LOAD_PRODUCTS", payload: products });
-      } catch (error) {
-        console.log(error);
-      }
-    })();
-  }, []);
-
-  useEffect(() => {
-    if (isUserLoggedIn) {
+  useEffect(
+    () => {
       (async () => {
         try {
           const {
-            data: { cart },
-          } = await axios.get(
-            `https://api-circlekart.herokuapp.com/carts/${userId}/cart`
-          );
-          console.log({ userId });
-          dataDispatch({ type: "LOAD_CART", payload: cart });
-        } catch (error) {
-          console.log(error);
-        }
-
-        try {
-          const {
-            data: { wishlist },
-          } = await axios.get(
-            `https://api-circlekart.herokuapp.com/wishlists/${userId}/wishlist`
-          );
-          console.log({ userId });
-          dataDispatch({ type: "LOAD_WISHLIST", payload: wishlist });
+            data: { products },
+          } = await axios.get("https://api-circlekart.herokuapp.com/products");
+          productsDispatch({ type: "LOAD_PRODUCTS", payload: products });
         } catch (error) {
           console.log(error);
         }
       })();
-    }
-  }, [userId]);
+    }, // eslint-disable-next-line
+    []
+  );
+
+  useEffect(
+    () => {
+      if (isUserLoggedIn) {
+        (async () => {
+          try {
+            const {
+              data: { cart },
+            } = await axios.get(
+              `https://api-circlekart.herokuapp.com/carts/${userId}/cart`
+            );
+            console.log({ userId });
+            dataDispatch({ type: "LOAD_CART", payload: cart });
+          } catch (error) {
+            console.log(error);
+          }
+
+          try {
+            const {
+              data: { wishlist },
+            } = await axios.get(
+              `https://api-circlekart.herokuapp.com/wishlists/${userId}/wishlist`
+            );
+            console.log({ userId });
+            dataDispatch({ type: "LOAD_WISHLIST", payload: wishlist });
+          } catch (error) {
+            console.log(error);
+          }
+        })();
+      }
+    }, //eslint-disable-next-line
+    [userId]
+  );
 
   function PrivateRoute({ path, ...props }) {
     return isUserLoggedIn ? (
