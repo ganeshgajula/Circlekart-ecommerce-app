@@ -17,6 +17,7 @@
   margin-left: 4.5rem;
 }
 
-.btn-primary {
-  max-width: 100%;
+.w-100 {
+  width: 100%;
+  margin: auto;
 }

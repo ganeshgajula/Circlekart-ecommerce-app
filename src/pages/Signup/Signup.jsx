@@ -89,7 +89,7 @@ export const Signup = () => {
             dispatch({ type: "PASSWORD", payload: e.target.value })
           }
         />
-        <button type="submit" className="btn-sm btn-primary">
+        <button type="submit" className="btn-sm btn-primary w-100">
           Sign Up
         </button>
       </form>
