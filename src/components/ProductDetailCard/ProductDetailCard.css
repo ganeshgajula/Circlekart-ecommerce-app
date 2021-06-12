@@ -30,6 +30,19 @@
 }
 
 @media (max-width: 500px) {
+  .product-detail-card {
+    display: flex;
+    flex-direction: column;
+    max-width: 95%;
+    margin: auto;
+  }
+
+  .product-image {
+    max-width: 95%;
+    max-height: 300px;
+    margin: 0 auto;
+  }
+
   .product-name {
     font-size: 0.9rem;
   }
