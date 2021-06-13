@@ -1,5 +1,5 @@
 import React from "react";
-import logo from "../../assets/logo.png";
+import logo from "../../assets/transparent-logo.png";
 import "../Navbar/Navbar.css";
 import {
   ProfileSvg,
