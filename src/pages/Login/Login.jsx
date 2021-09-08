@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { useNavigate, useLocation, Link } from "react-router-dom";
+import { toast } from "react-toastify";
 import { useAuth } from "../../context/AuthProvider";
 import { useData } from "../../context/DataProvider";
 import "./Login.css";
@@ -8,7 +9,7 @@ import "./Login.css";
 export const Login = () => {
   const { state } = useLocation();
   const navigate = useNavigate();
-  const { isUserLoggedIn, setLogin, setUserId, setUsername } = useAuth();
+  const { setUserId, setUsername, setToken, token } = useAuth();
   const { dataDispatch } = useData();
 
   const [email, setEmail] = useState("");
@@ -16,41 +17,53 @@ export const Login = () => {
 
   const loginHandler = async (e) => {
     e.preventDefault();
-    const { data, status } = await axios({
-      method: "POST",
-      url: "https://api-circlekart.herokuapp.com/users/authenticate",
-      headers: { email: email, password: password },
-    });
+    try {
+      const { data, status } = await axios({
+        method: "POST",
+        url: "http://localhost:4000/users/login",
+        headers: { email: email, password: password },
+      });
 
-    console.log(data);
-    if (status === 200) {
-      setLogin(true);
-      setUserId(data.userDetails.userId);
-      setUsername(data.userDetails.firstname);
-      localStorage?.setItem(
-        "userInfo",
-        JSON.stringify({
-          isUserLoggedIn: true,
-          username: data.userDetails.firstname,
-          userId: data.userDetails.userId,
-        })
-      );
-      navigate(state?.from ? state.from : "/");
+      console.log(data);
+      if (status === 200) {
+        setUserId(data.userDetails.userId);
+        setUsername(data.userDetails.firstname);
+        setToken(data.userDetails.token);
+        toast.success("Login successful!!", {
+          position: "bottom-center",
+          autoClose: 2000,
+        });
+        localStorage?.setItem(
+          "userInfo",
+          JSON.stringify({
+            isUserLoggedIn: true,
+            username: data.userDetails.firstname,
+            userId: data.userDetails.userId,
+            token: data.userDetails.token,
+          })
+        );
+        navigate(state?.from ? state.from : "/");
+      }
+    } catch (error) {
+      toast.error(error.response.data.message, {
+        position: "bottom-center",
+        autoClose: 3500,
+      });
     }
   };
 
   const logoutHandler = () => {
     localStorage?.removeItem("userInfo");
-    setLogin(false);
     setUserId("");
     setUsername("");
+    setToken(null);
     dataDispatch({ type: "RESET_APP_ON_LOGOUT" });
     navigate("/");
   };
 
   return (
     <div>
-      {!isUserLoggedIn ? (
+      {!token ? (
         <div className="login-container">
           <h1>Login</h1>
           <form onSubmit={loginHandler}>

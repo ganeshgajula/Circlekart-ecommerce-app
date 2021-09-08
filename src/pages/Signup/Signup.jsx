@@ -1,12 +1,12 @@
 import React, { useReducer } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { signupReducer } from "../../reducer/signupReducer";
-import { useAuth } from "../../context/AuthProvider";
+
 import "./Signup.css";
+import { toast } from "react-toastify";
 
 export const Signup = () => {
-  const { state } = useLocation();
   const navigate = useNavigate();
 
   const initialState = {
@@ -18,33 +18,30 @@ export const Signup = () => {
 
   const [signupState, dispatch] = useReducer(signupReducer, initialState);
 
-  const { setLogin, setUsername, setUserId } = useAuth();
-
   const signUpHandler = async (e) => {
     e.preventDefault();
-    const { data, status } = await axios.post(
-      "https://api-circlekart.herokuapp.com/users",
-      {
-        firstname: signupState.firstname,
-        lastname: signupState.lastname,
-        email: signupState.email,
-        password: signupState.password,
-      }
-    );
-    if (status === 201) {
-      console.log(data);
-      setLogin(true);
-      setUsername(data.savedUser.firstname);
-      setUserId(data.savedUser._id);
-      localStorage?.setItem(
-        "userInfo",
-        JSON.stringify({
-          isUserLoggedIn: true,
-          username: data.savedUser.firstname,
-          userId: data.savedUser._id,
-        })
+    try {
+      const { status } = await axios.post(
+        "http://localhost:4000/users/signup",
+        {
+          firstname: signupState.firstname,
+          lastname: signupState.lastname,
+          email: signupState.email,
+          password: signupState.password,
+        }
       );
-      navigate(state?.from ? state.from : "/");
+      if (status === 201) {
+        toast.success("Sign up successful. Kindly login!", {
+          position: "bottom-center",
+          autoClose: 2000,
+        });
+        navigate("/login");
+      }
+    } catch (error) {
+      toast.error(error.response.data.message, {
+        position: "bottom-center",
+        autoClose: 3500,
+      });
     }
   };
 
@@ -93,6 +90,18 @@ export const Signup = () => {
           Sign Up
         </button>
       </form>
+      <p>
+        Already have an account?{" "}
+        <span
+          style={{
+            textDecoration: "underline",
+            cursor: "pointer",
+          }}
+          onClick={() => navigate("/login")}
+        >
+          Login
+        </span>
+      </p>
     </div>
   );
 };
