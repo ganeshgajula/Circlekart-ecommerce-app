@@ -46,7 +46,7 @@ export const ProductDetailCard = ({
           </div>
           <div>
             <span className="product-action-btn">
-              {!isItemPresent(itemsInCart, _id) ? (
+              {!isItemPresent(itemsInCart, _id) && (
                 <button
                   className="btn-primary btn-md"
                   onClick={() => addProductToCart(_id, dataDispatch, userId)}
@@ -55,30 +55,25 @@ export const ProductDetailCard = ({
                 >
                   Add to Cart
                 </button>
-              ) : null}
+              )}
 
-              {isItemPresent(itemsInCart, _id) ? (
+              {isItemPresent(itemsInCart, _id) && (
                 <Link to="/cart">
                   <button className="btn-primary btn-md">Go to Cart</button>
                 </Link>
-              ) : null}
+              )}
             </span>
-            <span>
-              {!isItemPresent(itemsInWishlist, _id) ? (
-                <button
-                  className="btn-outline btn-md"
-                  onClick={() =>
-                    addProductToWishlist(_id, dataDispatch, userId)
-                  }
-                >
-                  Add to Wishlist
-                </button>
-              ) : null}
-
-              {isItemPresent(itemsInWishlist, _id) ? (
-                <button className="btn-outline btn-md">Wishlisted</button>
-              ) : null}
-            </span>
+            <button
+              className="btn-outline btn-md"
+              onClick={() =>
+                !isItemPresent(itemsInWishlist, _id) &&
+                addProductToWishlist(_id, dataDispatch, userId)
+              }
+            >
+              {!isItemPresent(itemsInWishlist, _id)
+                ? "Add to Wishlist"
+                : "Wishlisted"}
+            </button>
           </div>
         </div>
       </div>
