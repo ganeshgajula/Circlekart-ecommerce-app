@@ -35,37 +35,27 @@ const App = () => {
   }, [productsDispatch]);
 
   useEffect(() => {
-    if (token) {
+    token &&
       (async () => {
         try {
           const {
             data: { cart },
           } = await axios.get(`http://localhost:4000/carts/${userId}/cart`);
-          console.log({ userId });
           dataDispatch({ type: "LOAD_CART", payload: cart });
-        } catch (error) {
-          toast.error(error.response.data.message, {
-            position: "bottom-center",
-            autoClose: 2000,
-          });
-        }
 
-        try {
           const {
             data: { wishlist },
           } = await axios.get(
             `http://localhost:4000/wishlists/${userId}/wishlist`
           );
-          console.log({ userId });
           dataDispatch({ type: "LOAD_WISHLIST", payload: wishlist });
         } catch (error) {
-          toast.error(error.response.data.message, {
+          toast.error(error.response.data.errorMessage, {
             position: "bottom-center",
             autoClose: 2000,
           });
         }
       })();
-    }
   }, [userId, token, dataDispatch]);
 
   function PrivateRoute({ path, ...props }) {
