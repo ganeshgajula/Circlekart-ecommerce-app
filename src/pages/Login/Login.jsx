@@ -9,7 +9,7 @@ import "./Login.css";
 export const Login = () => {
   const { state } = useLocation();
   const navigate = useNavigate();
-  const { setUserId, setUsername, setToken, token } = useAuth();
+  const { setUserId, setUsername, token, loginUser, logoutUser } = useAuth();
   const { dataDispatch } = useData();
 
   const [email, setEmail] = useState("");
@@ -28,7 +28,7 @@ export const Login = () => {
       if (status === 200) {
         setUserId(data.userDetails.userId);
         setUsername(data.userDetails.firstname);
-        setToken(data.userDetails.token);
+        loginUser(data.userDetails.token);
         toast.success("Login successful!!", {
           position: "bottom-center",
           autoClose: 2000,
@@ -36,7 +36,6 @@ export const Login = () => {
         localStorage?.setItem(
           "userInfo",
           JSON.stringify({
-            isUserLoggedIn: true,
             username: data.userDetails.firstname,
             userId: data.userDetails.userId,
             token: data.userDetails.token,
@@ -53,12 +52,8 @@ export const Login = () => {
   };
 
   const logoutHandler = () => {
-    localStorage?.removeItem("userInfo");
-    setUserId("");
-    setUsername("");
-    setToken(null);
+    logoutUser();
     dataDispatch({ type: "RESET_APP_ON_LOGOUT" });
-    navigate("/");
   };
 
   return (

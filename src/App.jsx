@@ -1,4 +1,6 @@
 import React from "react";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 import { useEffect } from "react";
 import { Home } from "./pages/Home/Home";
@@ -17,59 +19,57 @@ import "./App.css";
 const App = () => {
   const { productsDispatch } = useProducts();
   const { dataDispatch } = useData();
-  const { isUserLoggedIn, userId } = useAuth();
+  const { token, userId } = useAuth();
 
-  useEffect(
-    () => {
+  useEffect(() => {
+    (async () => {
+      try {
+        const {
+          data: { products },
+        } = await axios.get("http://localhost:4000/products");
+        productsDispatch({ type: "LOAD_PRODUCTS", payload: products });
+      } catch (error) {
+        console.log(error);
+      }
+    })();
+  }, [productsDispatch]);
+
+  useEffect(() => {
+    if (token) {
       (async () => {
         try {
           const {
-            data: { products },
-          } = await axios.get("https://api-circlekart.herokuapp.com/products");
-          productsDispatch({ type: "LOAD_PRODUCTS", payload: products });
+            data: { cart },
+          } = await axios.get(`http://localhost:4000/carts/${userId}/cart`);
+          console.log({ userId });
+          dataDispatch({ type: "LOAD_CART", payload: cart });
         } catch (error) {
-          console.log(error);
+          toast.error(error.response.data.message, {
+            position: "bottom-center",
+            autoClose: 2000,
+          });
+        }
+
+        try {
+          const {
+            data: { wishlist },
+          } = await axios.get(
+            `http://localhost:4000/wishlists/${userId}/wishlist`
+          );
+          console.log({ userId });
+          dataDispatch({ type: "LOAD_WISHLIST", payload: wishlist });
+        } catch (error) {
+          toast.error(error.response.data.message, {
+            position: "bottom-center",
+            autoClose: 2000,
+          });
         }
       })();
-    }, // eslint-disable-next-line
-    []
-  );
-
-  useEffect(
-    () => {
-      if (isUserLoggedIn) {
-        (async () => {
-          try {
-            const {
-              data: { cart },
-            } = await axios.get(
-              `https://api-circlekart.herokuapp.com/carts/${userId}/cart`
-            );
-            console.log({ userId });
-            dataDispatch({ type: "LOAD_CART", payload: cart });
-          } catch (error) {
-            console.log(error);
-          }
-
-          try {
-            const {
-              data: { wishlist },
-            } = await axios.get(
-              `https://api-circlekart.herokuapp.com/wishlists/${userId}/wishlist`
-            );
-            console.log({ userId });
-            dataDispatch({ type: "LOAD_WISHLIST", payload: wishlist });
-          } catch (error) {
-            console.log(error);
-          }
-        })();
-      }
-    }, //eslint-disable-next-line
-    [userId]
-  );
+    }
+  }, [userId, token, dataDispatch]);
 
   function PrivateRoute({ path, ...props }) {
-    return isUserLoggedIn ? (
+    return token ? (
       <Route {...props} path={path} />
     ) : (
       <Navigate state={{ from: path }} replace to="/login" />
@@ -78,6 +78,7 @@ const App = () => {
 
   return (
     <div className="App">
+      <ToastContainer />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/signup" element={<Signup />} />
