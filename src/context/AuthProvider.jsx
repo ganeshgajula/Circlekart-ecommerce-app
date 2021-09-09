@@ -26,30 +26,32 @@ const setupAuthExceptionHandler = (logoutUser, navigate) => {
 };
 
 export const AuthProvider = ({ children }) => {
-  const [userId, setUserId] = useState(null);
-  const [username, setUsername] = useState(null);
-  const [token, setToken] = useState(null);
-  const navigate = useNavigate();
-
-  const loginUser = (token) => {
-    setToken(token);
-    setupAuthHeaderForServiceCalls(token);
+  const {
+    userId: savedUserId,
+    username: savedUsername,
+    token: savedToken,
+  } = JSON.parse(localStorage?.getItem("userInfo")) || {
+    userId: null,
+    username: null,
+    token: null,
   };
+  const [userId, setUserId] = useState(savedUserId);
+  const [username, setUsername] = useState(savedUsername);
+  const [token, setToken] = useState(savedToken);
+  const navigate = useNavigate();
 
   useEffect(
     () => {
-      const { userId, username, token } = JSON.parse(
-        localStorage?.getItem("userInfo")
-      ) || { userId: null, username: null, token: null };
-      console.log(token);
-      userId && setUserId(userId);
-      username && setUsername(username);
-      token && loginUser(token);
       setupAuthExceptionHandler(logoutUser, navigate);
     },
     //eslint-disable-next-line
     []
   );
+
+  const loginUser = (token) => {
+    setToken(token);
+    setupAuthHeaderForServiceCalls(token);
+  };
 
   const logoutUser = () => {
     localStorage?.removeItem("userInfo");
@@ -57,6 +59,8 @@ export const AuthProvider = ({ children }) => {
     setUsername("");
     loginUser(null);
   };
+
+  setupAuthHeaderForServiceCalls(token);
 
   return (
     <AuthContext.Provider
