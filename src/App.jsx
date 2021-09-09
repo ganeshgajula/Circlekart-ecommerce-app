@@ -29,7 +29,10 @@ const App = () => {
         } = await axios.get("http://localhost:4000/products");
         productsDispatch({ type: "LOAD_PRODUCTS", payload: products });
       } catch (error) {
-        console.log(error);
+        toast.error(error.response.data.errorMessage, {
+          position: "bottom-center",
+          autoClose: 2000,
+        });
       }
     })();
   }, [productsDispatch]);
