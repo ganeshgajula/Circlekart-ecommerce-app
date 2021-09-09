@@ -16,7 +16,7 @@ export function Navbar() {
     state: { itemsInCart, itemsInWishlist },
   } = useData();
 
-  const { isUserLoggedIn, username } = useAuth();
+  const { username } = useAuth();
 
   return (
     <nav className="navbar-area">
@@ -44,7 +44,7 @@ export function Navbar() {
             <div className="action-container">
               <li className="nav-item">{<ProfileSvg />}</li>
               <span className="user-title">
-                {username ? `Hi, ${username}` : null}
+                {username && `Hi, ${username}`}
               </span>
             </div>
           </Link>
@@ -52,7 +52,7 @@ export function Navbar() {
             <li className="nav-item badge-on-icon-container">
               {<OutlinedHeartSvg />}
               <span className="icon-badge blue ic-badge-heart-top">
-                {isUserLoggedIn ? itemsInWishlist.length : 0}
+                {itemsInWishlist.length}
               </span>
             </li>
           </Link>
@@ -60,7 +60,7 @@ export function Navbar() {
             <li className="nav-item badge-on-icon-container">
               {<OutlinedCartSvg />}
               <span className="icon-badge blue ic-badge-cart-top">
-                {isUserLoggedIn ? itemsInCart.length : 0}
+                {itemsInCart.length}
               </span>
             </li>
           </Link>
@@ -76,7 +76,7 @@ export function Navbar() {
               <div className="action-container">
                 <li className="nav-item">{<ProfileSvg />}</li>
                 <span className="user-title">
-                  {username ? `Hi, ${username}` : null}
+                  {username && `Hi, ${username}`}
                 </span>
               </div>
             </Link>
@@ -84,7 +84,7 @@ export function Navbar() {
               <li className="nav-item badge-on-icon-container">
                 {<OutlinedHeartSvg />}
                 <span className="icon-badge blue ic-badge-heart-top">
-                  {isUserLoggedIn ? itemsInWishlist.length : 0}
+                  {itemsInWishlist.length}
                 </span>
               </li>
             </Link>
@@ -92,7 +92,7 @@ export function Navbar() {
               <li className="nav-item badge-on-icon-container">
                 {<OutlinedCartSvg />}
                 <span className="icon-badge blue ic-badge-cart-top">
-                  {isUserLoggedIn ? itemsInCart.length : 0}
+                  {itemsInCart.length}
                 </span>
               </li>
             </Link>
