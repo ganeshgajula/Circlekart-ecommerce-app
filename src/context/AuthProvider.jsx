@@ -6,7 +6,7 @@ export const AuthContext = createContext();
 
 const setupAuthHeaderForServiceCalls = (token) => {
   if (token) {
-    return (axios.defaults.headers.common["Authorization"] = `Bearer ${token}`);
+    return (axios.defaults.headers.common["Authorization"] = token);
   }
   delete axios.defaults.headers.common["Authorization"];
 };
@@ -55,12 +55,12 @@ export const AuthProvider = ({ children }) => {
 
   const logoutUser = () => {
     localStorage?.removeItem("userInfo");
-    setUserId("");
-    setUsername("");
+    setUserId(null);
+    setUsername(null);
     loginUser(null);
   };
 
-  setupAuthHeaderForServiceCalls(token);
+  token && setupAuthHeaderForServiceCalls(token);
 
   return (
     <AuthContext.Provider
