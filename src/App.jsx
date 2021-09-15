@@ -26,7 +26,7 @@ const App = () => {
       try {
         const {
           data: { products },
-        } = await axios.get("http://localhost:4000/products");
+        } = await axios.get("https://api-circlekart.herokuapp.com/products");
         productsDispatch({ type: "LOAD_PRODUCTS", payload: products });
       } catch (error) {
         toast.error(error.response.data.errorMessage, {
@@ -43,13 +43,15 @@ const App = () => {
         try {
           const {
             data: { cart },
-          } = await axios.get(`http://localhost:4000/carts/${userId}/cart`);
+          } = await axios.get(
+            `https://api-circlekart.herokuapp.com/carts/${userId}/cart`
+          );
           dataDispatch({ type: "LOAD_CART", payload: cart });
 
           const {
             data: { wishlist },
           } = await axios.get(
-            `http://localhost:4000/wishlists/${userId}/wishlist`
+            `https://api-circlekart.herokuapp.com/wishlists/${userId}/wishlist`
           );
           dataDispatch({ type: "LOAD_WISHLIST", payload: wishlist });
         } catch (error) {

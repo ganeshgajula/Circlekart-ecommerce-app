@@ -22,7 +22,7 @@ export const Signup = () => {
     e.preventDefault();
     try {
       const { status } = await axios.post(
-        "http://localhost:4000/users/signup",
+        "https://api-circlekart.herokuapp.com/users/signup",
         {
           firstname: signupState.firstname,
           lastname: signupState.lastname,

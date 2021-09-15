@@ -20,7 +20,7 @@ export const Login = () => {
     try {
       const { data, status } = await axios({
         method: "POST",
-        url: "http://localhost:4000/users/login",
+        url: "https://api-circlekart.herokuapp.com/users/login",
         headers: { email: email, password: password },
       });
 
