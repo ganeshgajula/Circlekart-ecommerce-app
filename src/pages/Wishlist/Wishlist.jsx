@@ -4,7 +4,7 @@ import { useAuth } from "../../context/AuthProvider";
 import { isItemPresent } from "../../components/utils/utils";
 import { EmptyWishlist } from "../../components/EmptyWishlist/EmptyWishlist";
 import {
-  addProductToCart,
+  moveProductToCart,
   removeProductFromWishlist,
 } from "../../components/utils/utils";
 import { Link } from "react-router-dom";
@@ -71,8 +71,7 @@ export const Wishlist = () => {
                       onClick={() =>
                         isItemPresent(state.itemsInCart, _id)
                           ? removeProductFromWishlist(_id, dataDispatch, userId)
-                          : addProductToCart(_id, dataDispatch, userId) &&
-                            removeProductFromWishlist(_id, dataDispatch, userId)
+                          : moveProductToCart(_id, dataDispatch, userId)
                       }
                       style={{
                         cursor: !inStock ? "not-allowed" : "pointer",

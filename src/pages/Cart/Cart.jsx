@@ -6,7 +6,7 @@ import { DeleteSvg } from "../../components/Reusable-Svgs/svgs";
 import { EmptyCart } from "../../components/EmptyCart/EmptyCart";
 import {
   isItemPresent,
-  addProductToWishlist,
+  moveProductToWishlist,
   removeProductFromCart,
   incrementItemQuantityInCart,
   decrementItemQuantityInCart,
@@ -152,8 +152,7 @@ export const Cart = () => {
                         className="btn-outline btn-sm"
                         onClick={() =>
                           !isItemPresent(itemsInWishlist, _id)
-                            ? addProductToWishlist(_id, dataDispatch, userId) &&
-                              removeProductFromCart(_id, dataDispatch, userId)
+                            ? moveProductToWishlist(_id, dataDispatch, userId)
                             : removeProductFromCart(_id, dataDispatch, userId)
                         }
                       >
