@@ -22,7 +22,7 @@ export const Profile = () => {
       setStatus("loading");
       try {
         const response = await axios.get(
-          `http://localhost:4000/users/${userId}`
+          `https://api-circlekart.herokuapp.com/users/${userId}`
         );
         setUser(response.data.user);
         setStatus("success");

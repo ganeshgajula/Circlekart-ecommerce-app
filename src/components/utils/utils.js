@@ -269,10 +269,13 @@ export const updateUserData = async (
       data: {
         updatedUserDetails: { firstname, lastname },
       },
-    } = await axios.post(`http://localhost:4000/users/${userId}`, {
-      firstname: firstName,
-      lastname: lastName,
-    });
+    } = await axios.post(
+      `https://api-circlekart.herokuapp.com/users/${userId}`,
+      {
+        firstname: firstName,
+        lastname: lastName,
+      }
+    );
 
     if (status === 200) {
       setUsername(firstname);
