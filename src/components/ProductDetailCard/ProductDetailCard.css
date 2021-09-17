@@ -1,6 +1,6 @@
 .product-detail-card {
   display: flex;
-  max-width: 80%;
+  max-width: 75%;
   margin: auto;
   height: 100vh;
   justify-content: center;
@@ -21,6 +21,7 @@
 
 .heading-md {
   margin-bottom: 0.5rem;
+  font-weight: 600;
 }
 
 .author-name {
