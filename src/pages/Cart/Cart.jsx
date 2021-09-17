@@ -12,7 +12,7 @@ import {
   decrementItemQuantityInCart,
 } from "../../components/utils/utils";
 import { Link } from "react-router-dom";
-import "../Cart/Cart.css";
+import "./Cart.css";
 
 export const Cart = () => {
   const {
@@ -44,7 +44,15 @@ export const Cart = () => {
             </div>
             {itemsInCart.map(
               ({
-                productId: { _id, image, name, price, inStock, fastDelivery },
+                productId: {
+                  _id,
+                  image,
+                  name,
+                  price,
+                  inStock,
+                  fastDelivery,
+                  author,
+                },
                 quantity,
               }) =>
                 quantity === 0 ? null : (
@@ -74,8 +82,7 @@ export const Cart = () => {
                           >
                             <h1 className="product-name"> {name} </h1>
                           </Link>
-
-                          <p className="product-price">Rs. {price}</p>
+                          <p className="product-price-cart">Rs. {price}</p>
                         </div>
                         <div className="product-availability-info">
                           {inStock && (
@@ -86,13 +93,11 @@ export const Cart = () => {
                           )}
                           {fastDelivery ? (
                             <div className="delivery-status">
-                              {" "}
-                              Fast Delivery{" "}
+                              Fast Delivery Available
                             </div>
                           ) : (
                             <div className="delivery-status">
-                              {" "}
-                              3 days minimum{" "}
+                              Delivered within 3 days
                             </div>
                           )}
                         </div>
@@ -116,9 +121,7 @@ export const Cart = () => {
                           >
                             {quantity < 2 ? <DeleteSvg /> : "-"}
                           </button>
-
                           <span className="quantity-count">{quantity}</span>
-
                           <button
                             onClick={() =>
                               incrementItemQuantityInCart(
@@ -133,31 +136,38 @@ export const Cart = () => {
                             +
                           </button>
                         </div>
+                        <div className="action-btns">
+                          {quantity > 1 && (
+                            <button
+                              className="btn-outline btn-sm"
+                              onClick={() =>
+                                removeProductFromCart(_id, dataDispatch, userId)
+                              }
+                            >
+                              Remove
+                            </button>
+                          )}
+
+                          <button
+                            className="btn-outline btn-sm"
+                            onClick={() =>
+                              !isItemPresent(itemsInWishlist, _id)
+                                ? moveProductToWishlist(
+                                    _id,
+                                    dataDispatch,
+                                    userId
+                                  )
+                                : removeProductFromCart(
+                                    _id,
+                                    dataDispatch,
+                                    userId
+                                  )
+                            }
+                          >
+                            Move to wishlist
+                          </button>
+                        </div>
                       </span>
-                    </div>
-
-                    <div className="action-btns">
-                      {quantity > 1 ? (
-                        <button
-                          className="btn-outline btn-sm"
-                          onClick={() =>
-                            removeProductFromCart(_id, dataDispatch, userId)
-                          }
-                        >
-                          Remove
-                        </button>
-                      ) : null}
-
-                      <button
-                        className="btn-outline btn-sm"
-                        onClick={() =>
-                          !isItemPresent(itemsInWishlist, _id)
-                            ? moveProductToWishlist(_id, dataDispatch, userId)
-                            : removeProductFromCart(_id, dataDispatch, userId)
-                        }
-                      >
-                        Move to wishlist
-                      </button>
                     </div>
                   </div>
                 )
