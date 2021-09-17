@@ -1,19 +1,49 @@
 .login-container {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
+  max-width: 100%;
+  height: 45vh;
+  margin: 0 auto;
+}
+
+.login-heading {
+  margin-top: 2rem;
+  font-size: 1.8rem;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 90%;
+  width: 24%;
 }
 
 .input-area {
   display: block;
-  margin: 1rem;
-  padding: 0.5rem;
-  border-radius: 0.5rem;
-  border: 0.5px solid #333;
+  font-size: 1rem;
+  padding: 0.8rem 0.5rem;
+  border-radius: 0.2rem;
+  border: 0.2px solid #ccc;
+}
+
+input::placeholder {
+  color: #bbb;
+}
+
+.btn-primary {
+  font-size: 1.2rem;
+  padding: 0.7rem 0;
 }
 
 .w-100 {
   width: 100%;
-  margin: auto;
+  margin: 2rem auto;
+}
+
+.signup-msg {
+  font-weight: 500;
+  margin-right: 0.3rem;
 }

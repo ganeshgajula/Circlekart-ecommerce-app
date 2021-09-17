@@ -3,14 +3,30 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  height: 65vh;
+  margin-top: 2rem;
 }
 
 .input-area {
   display: block;
   margin: 1rem;
-  padding: 0.5rem;
+  padding: 0.6rem 0.5rem;
   border-radius: 0.5rem;
-  border: 0.5px solid #333;
+  border: 0.5px solid #ccc;
+  width: 100%;
+  margin: 0.2rem auto 1rem;
+}
+
+.input::placeholder {
+  color: #ccc;
+}
+
+.signup-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 90%;
+  width: 24%;
 }
 
 .action-btn {
@@ -19,5 +35,5 @@
 
 .w-100 {
   width: 100%;
-  margin: auto;
+  margin: 1rem auto;
 }

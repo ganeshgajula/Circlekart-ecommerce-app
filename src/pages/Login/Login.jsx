@@ -56,15 +56,17 @@ export const Login = () => {
     dataDispatch({ type: "RESET_APP_ON_LOGOUT" });
   };
 
+  const allFieldsEntered = email && password;
+
   return (
     <div>
-      {!token ? (
+      {!token && (
         <div className="login-container">
-          <h1>Login</h1>
-          <form onSubmit={loginHandler}>
+          <h1 className="login-heading">Log in to Circlekart</h1>
+          <form onSubmit={loginHandler} className="login-form">
             <input
               type="email"
-              className="input-area"
+              className="input-area w-100"
               placeholder="Enter email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
@@ -72,27 +74,27 @@ export const Login = () => {
 
             <input
               type="password"
-              className="input-area"
+              className="input-area w-100"
               placeholder="Enter password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
 
-            <button type="submit" className="btn-sm btn-primary w-100">
+            <button
+              type="submit"
+              className="btn-sm btn-primary w-100"
+              style={{ opacity: !allFieldsEntered && "0.6" }}
+              disabled={!allFieldsEntered && true}
+            >
               Login
             </button>
           </form>
           <p>
-            Don't have an account ?{" "}
+            <span className="signup-msg">Don't have an account?</span>
             <Link style={{ color: "inherit" }} to="/signup">
               Sign up Now
             </Link>
           </p>
-        </div>
-      ) : (
-        <div className="login-container">
-          <h1>Logout</h1>
-          <button onClick={logoutHandler}>Logout</button>
         </div>
       )}
     </div>
