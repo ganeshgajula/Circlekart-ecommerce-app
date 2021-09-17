@@ -37,7 +37,7 @@ export const Wishlist = () => {
                   className="card-with-dismiss card-vertical"
                 >
                   <Link to={`/product/${_id}`}>
-                    <img src={image} width="100%" height="auto" alt={name} />
+                    <img src={image} width="210px" height="260px" alt={name} />
                   </Link>
                   <span className="close-btn-on-card">
                     <svg
@@ -60,9 +60,9 @@ export const Wishlist = () => {
                         to={`/product/${_id}`}
                         style={{ textDecoration: "none", color: "inherit" }}
                       >
-                        <h4> {name} </h4>
+                        <h4 className="product-name"> {name} </h4>
                       </Link>
-                      <div>Rs. {price}</div>
+                      <p className="product-price-card-view">Rs. {price}</p>
                       {inStock && <div> In Stock </div>}
                       {!inStock && <div> Out of Stock </div>}
                     </div>
