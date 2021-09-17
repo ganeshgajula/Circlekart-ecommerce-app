@@ -15,7 +15,7 @@ export const ProductDetailCard = ({
   name,
   image,
   price,
-  productName,
+  author,
   inStock,
   level,
   fastDelivery,
@@ -35,14 +35,15 @@ export const ProductDetailCard = ({
         <div className="product-details-container">
           <div className="product-details">
             <h2 className="heading-md">{name}</h2>
+            <p className="author-name">by {author}</p>
             <p className="product-price">Rs. {price}</p>
-            <p>
-              {fastDelivery
-                ? "fast delivery available"
-                : "Delivered within 3 days"}
-            </p>
             <p>Level: {level}</p>
             <p>{inStock ? "Currently in stock" : "Currently out of stock"}</p>
+            <p>
+              {fastDelivery
+                ? "Fast delivery available"
+                : "Delivered within 3 days"}
+            </p>
           </div>
           <div>
             <span className="product-action-btn">

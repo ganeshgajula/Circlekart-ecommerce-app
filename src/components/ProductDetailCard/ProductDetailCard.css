@@ -1,5 +1,7 @@
 .product-detail-card {
   display: flex;
+  max-width: 80%;
+  margin: auto;
   height: 100vh;
   justify-content: center;
   align-items: center;
@@ -7,17 +9,22 @@
 }
 
 .product-image {
-  width: 460px;
-  height: 320px;
+  width: 318;
+  height: 400px;
 }
 
 .product-details-container {
   display: flex;
   flex-direction: column;
+  max-width: 50%;
 }
 
 .heading-md {
   margin-bottom: 0.5rem;
+}
+
+.author-name {
+  font-size: 0.9rem;
 }
 
 .product-price {

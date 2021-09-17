@@ -24,16 +24,7 @@ export const ProductCard = ({ ProductsList }) => {
       : addProductToWishlist(_id, dataDispatch, userId);
 
   return ProductsList.map(
-    ({
-      _id,
-      name,
-      image,
-      price,
-      productName,
-      inStock,
-      level,
-      fastDelivery,
-    }) => (
+    ({ _id, name, image, price, productName, inStock, level }) => (
       <div
         key={_id}
         style={{
@@ -74,17 +65,8 @@ export const ProductCard = ({ ProductsList }) => {
             >
               <h1 className="product-name"> {name} </h1>
             </Link>
+            <div className="level-info">Level: {level}</div>
             <p className="product-price-card-view">Rs. {price}</p>
-          </div>
-          <div className="product-availability-info">
-            {inStock && <div className="stock-status"> In Stock </div>}
-            {!inStock && <div className="stock-status"> Out of Stock </div>}
-            <div className="level-info">{level}</div>
-            {fastDelivery ? (
-              <div className="delivery-status"> Fast Delivery </div>
-            ) : (
-              <div className="delivery-status"> 3 days minimum </div>
-            )}
           </div>
 
           <div>
