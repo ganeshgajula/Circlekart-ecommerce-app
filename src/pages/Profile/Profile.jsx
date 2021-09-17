@@ -57,9 +57,9 @@ export const Profile = () => {
           </button>
         </div>
         {status === "loading" && <p>Loading...</p>}
-        <div className="edit-data">
-          <h2 className="edit-heading">Edit Profile</h2>
-          {status === "success" && (
+        {status === "success" && (
+          <div className="edit-data">
+            <h2 className="edit-heading">Edit Profile</h2>
             <form onSubmit={updateProfileHandler} className="updateInfo">
               <div className="userFullName">
                 <div className="inputFields mr-3">
@@ -89,8 +89,8 @@ export const Profile = () => {
                 Save
               </button>
             </form>
-          )}
-        </div>
+          </div>
+        )}
       </div>
     </div>
   );
