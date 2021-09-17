@@ -29,6 +29,7 @@ export const AuthProvider = ({ children }) => {
   const {
     userId: savedUserId,
     username: savedUsername,
+    lastname: savedLastname,
     token: savedToken,
   } = JSON.parse(localStorage?.getItem("userInfo")) || {
     userId: null,
@@ -37,6 +38,7 @@ export const AuthProvider = ({ children }) => {
   };
   const [userId, setUserId] = useState(savedUserId);
   const [username, setUsername] = useState(savedUsername);
+  const [lastname, setLastname] = useState(savedLastname);
   const [token, setToken] = useState(savedToken);
   const navigate = useNavigate();
 
@@ -67,9 +69,11 @@ export const AuthProvider = ({ children }) => {
       value={{
         userId,
         username,
+        lastname,
         token,
         setUserId,
         setUsername,
+        setLastname,
         setToken,
         loginUser,
         logoutUser,

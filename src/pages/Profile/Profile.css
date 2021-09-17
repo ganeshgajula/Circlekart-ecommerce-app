@@ -1,0 +1,97 @@
+.profile-details {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  max-width: 100%;
+  margin: 7rem auto 0;
+}
+
+.logout-btn {
+  background-color: tomato;
+  color: white;
+  border: none;
+  font-size: 1.1rem;
+  cursor: pointer;
+}
+
+.profile-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 28rem;
+}
+
+.profile-title {
+  font-size: 1.7rem;
+  font-weight: 500;
+}
+
+.edit-data {
+  margin-top: 1rem;
+  padding: 1rem;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.edit-heading {
+  font-size: 1.4rem;
+  font-weight: 500;
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.updateInfo {
+  display: flex;
+  flex-direction: column;
+  max-width: 50rem;
+  margin-top: 1rem;
+}
+
+.inputFields {
+  display: flex;
+  flex-direction: column;
+}
+
+.userFullName {
+  display: flex;
+  justify-content: space-between;
+}
+
+.mt-05 {
+  margin-top: 0.5rem;
+}
+
+.mr-3 {
+  margin-right: 3rem;
+}
+
+.form-input {
+  margin: 0.5rem 0;
+  padding: 0.4rem 0.5rem;
+  color: #333;
+  font-size: 1rem;
+  border-radius: 0.4rem;
+  border: 1px solid #ccc;
+}
+
+label {
+  font-weight: 500;
+}
+
+.email-title {
+  font-weight: 500;
+  margin: 0.3rem 0 0;
+}
+
+.email {
+  padding: 0.4rem 0.5rem;
+  color: #333;
+  font-size: 1rem;
+  border-radius: 0.4rem;
+  border: 1px solid #ccc;
+  margin-top: 0.5rem;
+}
+
+.email:hover {
+  cursor: not-allowed;
+}

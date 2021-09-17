@@ -7,6 +7,7 @@ import { Home } from "./pages/Home/Home";
 import { Wishlist } from "./pages/Wishlist/Wishlist";
 import { Cart } from "./pages/Cart/Cart";
 import { Login } from "./pages/Login/Login";
+import { Profile } from "./pages/Profile/Profile";
 import { ProductListing } from "./pages/ProductListing/ProductListing";
 import { ProductDetail } from "./pages/ProductDetail/ProductDetail";
 import { Routes, Route, Navigate } from "react-router-dom";
@@ -79,9 +80,10 @@ const App = () => {
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
         <Route path="/products" element={<ProductListing />} />
+        <Route path="/product/:productId" element={<ProductDetail />} />
         <PrivateRoute path="/wishlist" element={<Wishlist />} />
         <PrivateRoute path="/cart" element={<Cart />} />
-        <Route path="/product/:productId" element={<ProductDetail />} />
+        <PrivateRoute path="/profile" element={<Profile />} />
       </Routes>
     </div>
   );

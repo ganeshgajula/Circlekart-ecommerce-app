@@ -3,14 +3,12 @@ import React, { useState } from "react";
 import { useNavigate, useLocation, Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useAuth } from "../../context/AuthProvider";
-import { useData } from "../../context/DataProvider";
 import "./Login.css";
 
 export const Login = () => {
   const { state } = useLocation();
   const navigate = useNavigate();
-  const { setUserId, setUsername, token, loginUser, logoutUser } = useAuth();
-  const { dataDispatch } = useData();
+  const { setUserId, setUsername, setLastname, token, loginUser } = useAuth();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -20,7 +18,7 @@ export const Login = () => {
     try {
       const { data, status } = await axios({
         method: "POST",
-        url: "https://api-circlekart.herokuapp.com/users/login",
+        url: "http://localhost:4000/users/login",
         headers: { email: email, password: password },
       });
 
@@ -28,6 +26,7 @@ export const Login = () => {
       if (status === 200) {
         setUserId(data.userDetails.userId);
         setUsername(data.userDetails.firstname);
+        setLastname(data.userDetails.lastname);
         loginUser(data.userDetails.token);
         toast.success("Login successful!!", {
           position: "bottom-center",
@@ -37,6 +36,7 @@ export const Login = () => {
           "userInfo",
           JSON.stringify({
             username: data.userDetails.firstname,
+            lastname: data.userDetails.lastname,
             userId: data.userDetails.userId,
             token: data.userDetails.token,
           })
@@ -49,11 +49,6 @@ export const Login = () => {
         autoClose: 3500,
       });
     }
-  };
-
-  const logoutHandler = () => {
-    logoutUser();
-    dataDispatch({ type: "RESET_APP_ON_LOGOUT" });
   };
 
   const allFieldsEntered = email && password;

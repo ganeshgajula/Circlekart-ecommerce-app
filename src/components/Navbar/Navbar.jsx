@@ -40,7 +40,7 @@ export function Navbar() {
         <SearchBar />
 
         <ul className="nav-list">
-          <Link to="/login">
+          <Link to="/profile">
             <div className="action-container">
               <li className="nav-item">{<ProfileSvg />}</li>
               <span className="user-title">
@@ -72,7 +72,7 @@ export function Navbar() {
             <img className="brand-logo" src={logo} alt="brand-logo" />
           </Link>
           <ul className="nav-list">
-            <Link to="/login">
+            <Link to="/profile">
               <div className="action-container">
                 <li className="nav-item">{<ProfileSvg />}</li>
                 <span className="user-title">
