@@ -29,10 +29,10 @@ export const Signup = () => {
       const { status } = await axios.post(
         "https://api-circlekart.herokuapp.com/users/signup",
         {
-          firstname: firstname,
-          lastname: lastname,
-          email: email,
-          password: password,
+          firstname,
+          lastname,
+          email,
+          password,
         }
       );
       if (status === 201) {

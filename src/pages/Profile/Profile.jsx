@@ -8,10 +8,10 @@ import { useData } from "../../context/DataProvider";
 import "./Profile.css";
 
 export const Profile = () => {
-  const { userId, setUsername, setLastname } = useAuth();
   const [user, setUser] = useState(null);
   const [status, setStatus] = useState(null);
-  const { logoutUser, lastname, username } = useAuth();
+  const { userId, setUsername, setLastname, logoutUser, lastname, username } =
+    useAuth();
   const { dataDispatch } = useData();
 
   const [firstName, setFirstName] = useState(username);
@@ -21,11 +21,17 @@ export const Profile = () => {
     (async () => {
       setStatus("loading");
       try {
-        const response = await axios.get(
+        const {
+          status,
+          data: { user },
+        } = await axios.get(
           `https://api-circlekart.herokuapp.com/users/${userId}`
         );
-        setUser(response.data.user);
-        setStatus("success");
+
+        if (status === 200) {
+          setUser(user);
+          setStatus("success");
+        }
       } catch (error) {
         setStatus("error");
         toast.error(error.response.data.errorMessage, {

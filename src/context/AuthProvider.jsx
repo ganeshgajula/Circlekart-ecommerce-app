@@ -59,6 +59,7 @@ export const AuthProvider = ({ children }) => {
     localStorage?.removeItem("userInfo");
     setUserId(null);
     setUsername(null);
+    setLastname(null);
     loginUser(null);
   };
 
