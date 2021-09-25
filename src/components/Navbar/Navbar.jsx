@@ -1,6 +1,6 @@
 import React from "react";
 import logo from "../../assets/transparent-logo.png";
-import "../Navbar/Navbar.css";
+import "./Navbar.css";
 import {
   ProfileSvg,
   OutlinedHeartSvg,
@@ -16,7 +16,7 @@ export function Navbar() {
     state: { itemsInCart, itemsInWishlist },
   } = useData();
 
-  const { username } = useAuth();
+  const { username, token } = useAuth();
 
   return (
     <nav className="navbar-area">
@@ -40,28 +40,37 @@ export function Navbar() {
         <SearchBar />
 
         <ul className="nav-list">
-          <Link to="/profile">
-            <div className="action-container">
-              <li className="nav-item">{<ProfileSvg />}</li>
-              <span className="user-title">
-                {username && `Hi, ${username}`}
-              </span>
-            </div>
-          </Link>
+          {!token && (
+            <Link to="/login">
+              <li className="btn btn-sm">Login</li>
+            </Link>
+          )}
+          {token && (
+            <Link to="/profile">
+              <div className="action-container">
+                <li className="nav-item">{<ProfileSvg />}</li>
+                <span className="user-title">{`Hi, ${username}`}</span>
+              </div>
+            </Link>
+          )}
           <Link to="/wishlist">
             <li className="nav-item badge-on-icon-container">
               {<OutlinedHeartSvg />}
-              <span className="icon-badge blue ic-badge-heart-top">
-                {itemsInWishlist.length}
-              </span>
+              {token && (
+                <span className="icon-badge blue ic-badge-heart-top">
+                  {itemsInWishlist.length}
+                </span>
+              )}
             </li>
           </Link>
           <Link to="/cart">
             <li className="nav-item badge-on-icon-container">
               {<OutlinedCartSvg />}
-              <span className="icon-badge blue ic-badge-cart-top">
-                {itemsInCart.length}
-              </span>
+              {token && (
+                <span className="icon-badge blue ic-badge-cart-top">
+                  {itemsInCart.length}
+                </span>
+              )}
             </li>
           </Link>
         </ul>
@@ -72,28 +81,39 @@ export function Navbar() {
             <img className="brand-logo" src={logo} alt="brand-logo" />
           </Link>
           <ul className="nav-list">
-            <Link to="/profile">
-              <div className="action-container">
-                <li className="nav-item">{<ProfileSvg />}</li>
-                <span className="user-title">
-                  {username && `Hi, ${username}`}
-                </span>
-              </div>
-            </Link>
+            {!token && (
+              <Link to="/login">
+                <li className="btn btn-xs">Login</li>
+              </Link>
+            )}
+            {token && (
+              <Link to="/profile">
+                <div className="action-container">
+                  <li className="nav-item">{<ProfileSvg />}</li>
+                  <span className="user-title">
+                    {username && `Hi, ${username}`}
+                  </span>
+                </div>
+              </Link>
+            )}
             <Link to="/wishlist">
               <li className="nav-item badge-on-icon-container">
                 {<OutlinedHeartSvg />}
-                <span className="icon-badge blue ic-badge-heart-top">
-                  {itemsInWishlist.length}
-                </span>
+                {token && (
+                  <span className="icon-badge blue ic-badge-heart-top">
+                    {itemsInWishlist.length}
+                  </span>
+                )}
               </li>
             </Link>
             <Link to="/cart">
               <li className="nav-item badge-on-icon-container">
                 {<OutlinedCartSvg />}
-                <span className="icon-badge blue ic-badge-cart-top">
-                  {itemsInCart.length}
-                </span>
+                {token && (
+                  <span className="icon-badge blue ic-badge-cart-top">
+                    {itemsInCart.length}
+                  </span>
+                )}
               </li>
             </Link>
           </ul>
