@@ -3,7 +3,7 @@ import { Navbar } from "../../components/Navbar/Navbar";
 import "../ProductListing/ProductListing.css";
 import { useProducts } from "../../context/ProductsProvider";
 import { ProductCard } from "../../components/ProductsCard/ProductCard";
-import { SearchedProductPage } from "./SearchedProduct";
+import { EmptySearch } from "../../components/EmptySearch/EmptySearch";
 
 export const ProductListing = () => {
   const {
@@ -39,6 +39,12 @@ export const ProductListing = () => {
     showInventoryAll,
     fastDeliveryOnly,
   });
+
+  const filteredProducts = filteredData.filter(
+    (product) =>
+      product.name.toLowerCase().includes(searchedKeyword.toLowerCase()) ||
+      product.author.toLowerCase().includes(searchedKeyword.toLowerCase())
+  );
 
   return (
     <div>
@@ -98,13 +104,13 @@ export const ProductListing = () => {
           </fieldset>
         </aside>
 
-        <main className="products-area">
-          {searchedKeyword === "" ? (
-            <ProductCard ProductsList={filteredData} />
-          ) : (
-            <SearchedProductPage />
-          )}
-        </main>
+        {filteredProducts.length > 0 ? (
+          <main className="products-area">
+            <ProductCard ProductsList={filteredProducts} />
+          </main>
+        ) : (
+          <EmptySearch />
+        )}
       </div>
     </div>
   );
