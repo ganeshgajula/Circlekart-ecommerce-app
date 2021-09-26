@@ -112,13 +112,13 @@
 @media (max-width: 500px) {
   .cart-area {
     flex-direction: column;
+    max-width: 100%;
     margin: 1rem auto 2rem;
-    max-width: 90%;
     gap: 1rem;
   }
 
   .cartItems-section {
-    max-width: 90%;
+    max-width: 100%;
     margin: auto;
   }
 
@@ -145,5 +145,136 @@
 
   .action-btns > * {
     font-size: 0.7rem;
+  }
+
+  .checkout-panel {
+    max-width: 95%;
+    margin: 2rem auto;
+  }
+}
+
+@media (min-width: 501px) and (max-width: 600px) {
+  .cart-area {
+    flex-direction: column;
+    max-width: 100%;
+    margin: 1rem auto 2rem;
+    gap: 1rem;
+  }
+
+  .cartItems-section {
+    max-width: 100%;
+    margin: auto;
+  }
+
+  .cartValue-msg {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .cartItem {
+    gap: 1rem;
+  }
+
+  .cartItem-img {
+    width: 10rem;
+    height: auto;
+  }
+
+  .count-btn {
+    font-size: 1rem;
+    padding: 0.2rem;
+  }
+
+  .action-btns {
+    gap: 1rem;
+    margin-left: 0;
+  }
+
+  .action-btns > * {
+    font-size: 1rem;
+  }
+
+  .checkout-panel {
+    max-width: 95%;
+    margin: 2rem auto;
+  }
+}
+
+@media (min-width: 601px) and (max-width: 700px) {
+  .cart-area {
+    flex-direction: column;
+    max-width: 100%;
+    margin: 7rem auto 2rem;
+    gap: 1rem;
+  }
+
+  .cartItems-section {
+    max-width: 100%;
+    margin: auto;
+  }
+
+  .cartValue-msg {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .cartItem {
+    gap: 1.5rem;
+  }
+
+  .cartItem-img {
+    width: 10rem;
+    height: auto;
+  }
+
+  .action-btns {
+    gap: 1rem;
+    margin-left: 0;
+  }
+
+  .action-btns > * {
+    font-size: 1rem;
+  }
+
+  .checkout-panel {
+    max-width: 95%;
+    margin: 2rem auto;
+  }
+}
+
+@media (min-width: 701px) and (max-width: 1264px) {
+  .cart-area {
+    max-width: 100%;
+    margin: 7rem auto 2rem;
+    gap: 1rem;
+  }
+
+  .cartItems-section {
+    max-width: 60%;
+    margin: auto;
+  }
+
+  .cartItem {
+    gap: 1rem;
+  }
+
+  .cartItem-img {
+    width: 9.5rem;
+    height: auto;
+  }
+
+  .checkout-panel {
+    margin-right: 1.5rem;
+  }
+
+  .action-btns {
+    gap: 1rem;
+    margin-left: 0;
+  }
+
+  .action-btns > * {
+    font-size: 1rem;
   }
 }

@@ -37,7 +37,7 @@ export const Wishlist = () => {
                   className="card-with-dismiss card-vertical"
                 >
                   <Link to={`/product/${_id}`}>
-                    <img src={image} width="210px" height="260px" alt={name} />
+                    <img src={image} width="100%" height="auto" alt={name} />
                   </Link>
                   <span className="close-btn-on-card">
                     <svg

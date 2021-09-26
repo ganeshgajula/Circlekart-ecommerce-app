@@ -8,7 +8,7 @@ import {
   addProductToWishlist,
   removeProductFromWishlist,
 } from "../utils/utils";
-import "../ProductsCard/ProductCard.css";
+import "./ProductCard.css";
 
 export const ProductCard = ({ ProductsList }) => {
   const {
