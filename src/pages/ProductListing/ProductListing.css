@@ -1,5 +1,5 @@
 .main-product-area {
-  margin: 10rem auto 0;
+  margin: 6rem auto 0;
   max-width: 95%;
   display: flex;
 }
@@ -21,6 +21,7 @@
   gap: 1.5rem;
   max-width: 19%;
   position: fixed;
+  margin-top: 1.5rem;
 }
 
 .form-label {
@@ -85,7 +86,7 @@
   }
 }
 
-@media (min-width: 1001px) and (max-width: 1200px) {
+@media (min-width: 1001px) and (max-width: 1070px) {
   .side-pannel {
     margin-top: 1.5rem;
     max-width: 28%;
@@ -99,5 +100,22 @@
   .products-area {
     margin-left: 14rem;
     grid-template-columns: repeat(3, 0.8fr);
+  }
+}
+
+@media (min-width: 1071px) and (max-width: 1200px) {
+  .side-pannel {
+    margin-top: 1.5rem;
+    max-width: 25%;
+    font-size: 0.92rem;
+  }
+
+  .main-product-area {
+    margin: 5rem auto 0;
+  }
+
+  .products-area {
+    margin-left: 14rem;
+    grid-template-columns: repeat(4, 1fr);
   }
 }

@@ -37,9 +37,11 @@ export const ProductDetailCard = ({
             <h2 className="heading-md">{name}</h2>
             <p className="author-name">by {author}</p>
             <p className="product-price">Rs. {price}</p>
-            <p>Level: {level}</p>
-            <p>{inStock ? "Currently in stock" : "Currently out of stock"}</p>
-            <p>
+            <p className="level">Level: {level}</p>
+            <p className="stock-status">
+              {inStock ? "Currently in stock" : "Currently out of stock"}
+            </p>
+            <p className="delivery-info">
               {fastDelivery
                 ? "Fast delivery available"
                 : "Delivered within 3 days"}
