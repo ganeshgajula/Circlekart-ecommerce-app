@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import { Navbar } from "../../components/Navbar/Navbar";
 import "../ProductListing/ProductListing.css";
 import { useProducts } from "../../context/ProductsProvider";
 import { ProductCard } from "../../components/ProductsCard/ProductCard";
 import { EmptySearch } from "../../components/EmptySearch/EmptySearch";
+import { FilterIcon, SortIcon } from "../../assets/svgs";
+import { SortBottomDrawer } from "../../components/SortBottomDrawer/SortBottomDrawer";
+import { FilterBottomDrawer } from "../../components/FilterBottomDrawer/FilterBottomDrawer";
 
 export const ProductListing = () => {
   const {
@@ -16,6 +19,9 @@ export const ProductListing = () => {
     },
     productsDispatch,
   } = useProducts();
+
+  const [showSortDrawer, setShowSortDrawer] = useState(false);
+  const [showFilterDrawer, setShowFilterDrawer] = useState(false);
 
   const getSortedData = (products, sortBy) => {
     if (sortBy && sortBy === "PRICE_HIGH_TO_LOW") {
@@ -105,9 +111,35 @@ export const ProductListing = () => {
         </aside>
 
         {filteredProducts.length > 0 ? (
-          <main className="products-area">
-            <ProductCard ProductsList={filteredProducts} />
-          </main>
+          <div className="outer">
+            <main className="products-area">
+              <ProductCard ProductsList={filteredProducts} />
+            </main>
+            {!showSortDrawer && !showFilterDrawer && (
+              <div className="mobile-filters">
+                <span
+                  className="sort-container"
+                  onClick={() => setShowSortDrawer(true)}
+                >
+                  <SortIcon />
+                  <span className="display-text">Sort</span>
+                </span>
+                <span
+                  className="filter-container"
+                  onClick={() => setShowFilterDrawer(true)}
+                >
+                  <FilterIcon />
+                  <span className="display-text">Filter</span>
+                </span>
+              </div>
+            )}
+            {showSortDrawer && (
+              <SortBottomDrawer setShowSortDrawer={setShowSortDrawer} />
+            )}
+            {showFilterDrawer && (
+              <FilterBottomDrawer setShowFilterDrawer={setShowFilterDrawer} />
+            )}
+          </div>
         ) : (
           <EmptySearch />
         )}
