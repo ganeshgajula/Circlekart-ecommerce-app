@@ -29,6 +29,10 @@
   margin-top: 1.5rem;
 }
 
+.mobile-filters {
+  display: none;
+}
+
 .form-label {
   display: block;
   cursor: pointer;

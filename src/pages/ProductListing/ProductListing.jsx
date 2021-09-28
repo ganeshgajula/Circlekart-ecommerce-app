@@ -115,24 +115,24 @@ export const ProductListing = () => {
             <main className="products-area">
               <ProductCard ProductsList={filteredProducts} />
             </main>
-            {!showSortDrawer && !showFilterDrawer && (
-              <div className="mobile-filters">
-                <span
-                  className="sort-container"
-                  onClick={() => setShowSortDrawer(true)}
-                >
-                  <SortIcon />
-                  <span className="display-text">Sort</span>
-                </span>
-                <span
-                  className="filter-container"
-                  onClick={() => setShowFilterDrawer(true)}
-                >
-                  <FilterIcon />
-                  <span className="display-text">Filter</span>
-                </span>
-              </div>
-            )}
+
+            <div className="mobile-filters">
+              <span
+                className="sort-container"
+                onClick={() => setShowSortDrawer(true)}
+              >
+                <SortIcon />
+                <span className="display-text">Sort</span>
+              </span>
+              <span
+                className="filter-container"
+                onClick={() => setShowFilterDrawer(true)}
+              >
+                <FilterIcon />
+                <span className="display-text">Filter</span>
+              </span>
+            </div>
+
             {showSortDrawer && (
               <SortBottomDrawer setShowSortDrawer={setShowSortDrawer} />
             )}
