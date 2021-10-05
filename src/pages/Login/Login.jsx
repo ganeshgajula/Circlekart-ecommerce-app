@@ -12,15 +12,22 @@ export const Login = () => {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [guestLogin, setGuestLogin] = useState(false);
 
   const loginHandler = async (e) => {
     e.preventDefault();
     try {
-      const { data, status } = await axios({
-        method: "POST",
-        url: "https://api-circlekart.herokuapp.com/users/login",
-        headers: { email: email, password: password },
-      });
+      const { data, status } = !guestLogin
+        ? await axios({
+            method: "POST",
+            url: "https://api-circlekart.herokuapp.com/users/login",
+            headers: { email: email, password: password },
+          })
+        : await axios({
+            method: "POST",
+            url: "https://api-circlekart.herokuapp.com/users/login",
+            headers: { email: "ganesh@gmail.com", password: "ganesh" },
+          });
 
       console.log(data);
       if (status === 200) {
@@ -82,6 +89,12 @@ export const Login = () => {
               disabled={!allFieldsEntered && true}
             >
               Login
+            </button>
+            <button
+              className="btn-sm btn-primary w-100"
+              onClick={() => setGuestLogin(true)}
+            >
+              Login as Guest
             </button>
           </form>
           <p>
