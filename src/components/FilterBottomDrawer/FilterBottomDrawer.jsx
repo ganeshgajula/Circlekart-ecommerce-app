@@ -10,8 +10,8 @@ export const FilterBottomDrawer = ({ setShowFilterDrawer }) => {
     productsDispatch,
   } = useProducts();
 
-  const [toggleStock, setToggleStock] = useState(showInventoryAll);
-  const [toggleDelivery, setToggleDelivery] = useState(fastDeliveryOnly);
+  const [toggleStock, setToggleStock] = useState(false);
+  const [toggleDelivery, setToggleDelivery] = useState(false);
 
   const applyFilters = () => {
     toggleStock !== showInventoryAll &&
