@@ -4,6 +4,7 @@ import { useData } from "../../context/DataProvider";
 import { useAuth } from "../../context/AuthProvider";
 import { DeleteSvg } from "../../components/Reusable-Svgs/svgs";
 import { EmptyCart } from "../../components/EmptyCart/EmptyCart";
+import { loadPayment } from "../../api/razorpay-payment";
 import {
   isItemPresent,
   moveProductToWishlist,
@@ -13,22 +14,6 @@ import {
 } from "../../components/utils/utils";
 import { Link } from "react-router-dom";
 import "./Cart.css";
-import paymentLogo from "../../assets/payment-logo.jpg";
-import axios from "axios";
-
-const loadScript = (src) => {
-  return new Promise((resolve) => {
-    const script = document.createElement("script");
-    script.src = src;
-    script.onload = () => {
-      resolve(true);
-    };
-    script.onerror = () => {
-      resolve(false);
-    };
-    document.body.appendChild(script);
-  });
-};
 
 export const Cart = () => {
   const {
@@ -37,55 +22,6 @@ export const Cart = () => {
   } = useData();
 
   const { userId } = useAuth();
-
-  const displayRazorpay = async (orderInfo) => {
-    try {
-      const res = await loadScript(
-        "https://checkout.razorpay.com/v1/checkout.js"
-      );
-
-      if (!res) {
-        alert("SDK failed to load");
-        return;
-      }
-
-      const {
-        data: { order },
-      } = await axios.post("http://localhost:4000/carts/checkout", {
-        orderInfo,
-      });
-
-      const options = {
-        key: "rzp_test_Tosf7K9EOd3v7X",
-        order: order.amount.toString(),
-        currency: order.currency,
-        name: "Circle Inc",
-        description: "Test Transaction",
-        image: paymentLogo,
-        order_id: order.id,
-        handler: function (response) {
-          alert(response.razorpay_payment_id);
-          alert(response.razorpay_order_id);
-          alert(response.razorpay_signature);
-        },
-        prefill: {
-          name: "Gaurav Kumar",
-          email: "gaurav.kumar@example.com",
-          contact: "9999999999",
-        },
-        notes: {
-          address: "Circle Corporate Office",
-        },
-        theme: {
-          color: "#3399cc",
-        },
-      };
-      const paymentObject = new window.Razorpay(options);
-      paymentObject.open();
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   const getTotal = (cartItems) => {
     const total = cartItems.reduce(
@@ -262,7 +198,7 @@ export const Cart = () => {
             </div>
             <button
               className="btn-sm btn checkout-btn mt-2"
-              onClick={() => displayRazorpay({ totalAmount })}
+              onClick={() => loadPayment({ totalAmount })}
             >
               Checkout
             </button>
