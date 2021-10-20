@@ -13,6 +13,22 @@ import {
 } from "../../components/utils/utils";
 import { Link } from "react-router-dom";
 import "./Cart.css";
+import paymentLogo from "../../assets/payment-logo.jpg";
+import axios from "axios";
+
+const loadScript = (src) => {
+  return new Promise((resolve) => {
+    const script = document.createElement("script");
+    script.src = src;
+    script.onload = () => {
+      resolve(true);
+    };
+    script.onerror = () => {
+      resolve(false);
+    };
+    document.body.appendChild(script);
+  });
+};
 
 export const Cart = () => {
   const {
@@ -22,11 +38,64 @@ export const Cart = () => {
 
   const { userId } = useAuth();
 
-  const getTotal = (cartItems) =>
-    cartItems.reduce(
+  const displayRazorpay = async (orderInfo) => {
+    try {
+      const res = await loadScript(
+        "https://checkout.razorpay.com/v1/checkout.js"
+      );
+
+      if (!res) {
+        alert("SDK failed to load");
+        return;
+      }
+
+      const {
+        data: { order },
+      } = await axios.post("http://localhost:4000/carts/checkout", {
+        orderInfo,
+      });
+
+      const options = {
+        key: "rzp_test_Tosf7K9EOd3v7X",
+        order: order.amount.toString(),
+        currency: order.currency,
+        name: "Circle Inc",
+        description: "Test Transaction",
+        image: paymentLogo,
+        order_id: order.id,
+        handler: function (response) {
+          alert(response.razorpay_payment_id);
+          alert(response.razorpay_order_id);
+          alert(response.razorpay_signature);
+        },
+        prefill: {
+          name: "Gaurav Kumar",
+          email: "gaurav.kumar@example.com",
+          contact: "9999999999",
+        },
+        notes: {
+          address: "Circle Corporate Office",
+        },
+        theme: {
+          color: "#3399cc",
+        },
+      };
+      const paymentObject = new window.Razorpay(options);
+      paymentObject.open();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const getTotal = (cartItems) => {
+    const total = cartItems.reduce(
       (total, value) => total + value.productId.price * value.quantity,
       0
     );
+    return total;
+  };
+
+  const totalAmount = getTotal(itemsInCart);
 
   return (
     <div>
@@ -188,10 +257,15 @@ export const Cart = () => {
               </div>
               <div className="checkout-field">
                 <span>Total Amount</span>
-                <span>Rs.{getTotal(itemsInCart)}</span>
+                <span>Rs.{totalAmount}</span>
               </div>
             </div>
-            <button className="btn-sm btn checkout-btn mt-2">Checkout</button>
+            <button
+              className="btn-sm btn checkout-btn mt-2"
+              onClick={() => displayRazorpay({ totalAmount })}
+            >
+              Checkout
+            </button>
           </aside>
         </main>
       ) : (
