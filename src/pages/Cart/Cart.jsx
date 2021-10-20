@@ -173,7 +173,7 @@ export const Cart = () => {
                 )
             )}
           </div>
-          <aside>
+          <aside className="checkout-container">
             <div className="checkout-panel">
               <div className="checkout-header">
                 PRICE DETAILS <span>({itemsInCart.length} Items)</span>
@@ -191,6 +191,7 @@ export const Cart = () => {
                 <span>Rs.{getTotal(itemsInCart)}</span>
               </div>
             </div>
+            <button className="btn-sm btn checkout-btn mt-2">Checkout</button>
           </aside>
         </main>
       ) : (
