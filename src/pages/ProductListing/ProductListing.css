@@ -20,22 +20,8 @@
   cursor: pointer;
 }
 
-.side-pannel {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-  max-width: 19%;
-  position: fixed;
-  margin-top: 1.5rem;
-}
-
 .mobile-filters {
   display: none;
-}
-
-.form-label {
-  display: block;
-  cursor: pointer;
 }
 
 .products-area {
@@ -46,6 +32,21 @@
 
 .btn-outline {
   margin-top: 1rem;
+}
+
+.side-pannel {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  max-width: 16%;
+  position: fixed;
+  margin-top: 1.5rem;
+}
+
+.form-label {
+  display: block;
+  cursor: pointer;
+  margin: 0.6rem 0;
 }
 
 @media (max-width: 600px) {

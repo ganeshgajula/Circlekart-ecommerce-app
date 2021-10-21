@@ -9,6 +9,8 @@ export const ProductsProvider = ({ children }) => {
     showInventoryAll: false,
     fastDeliveryOnly: false,
     sortBy: null,
+    selectedLevels: [],
+    selectedAuthors: [],
     searchedKeyword: "",
   };
 

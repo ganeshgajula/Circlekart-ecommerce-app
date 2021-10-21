@@ -7,6 +7,7 @@ import { EmptySearch } from "../../components/EmptySearch/EmptySearch";
 import { FilterIcon, SortIcon } from "../../assets/svgs";
 import { SortBottomDrawer } from "../../components/SortBottomDrawer/SortBottomDrawer";
 import { FilterBottomDrawer } from "../../components/FilterBottomDrawer/FilterBottomDrawer";
+import { SideFilters } from "../../components/SideFilters/SideFilters";
 
 export const ProductListing = () => {
   const {
@@ -15,9 +16,10 @@ export const ProductListing = () => {
       showInventoryAll,
       fastDeliveryOnly,
       sortBy,
+      selectedLevels,
+      selectedAuthors,
       searchedKeyword,
     },
-    productsDispatch,
   } = useProducts();
 
   const [showSortDrawer, setShowSortDrawer] = useState(false);
@@ -40,13 +42,35 @@ export const ProductListing = () => {
       .filter(({ inStock }) => (showInventoryAll ? true : inStock))
       .filter(({ fastDelivery }) => (fastDeliveryOnly ? fastDelivery : true));
 
+  const getFilteredByLevels = (products, selectedLevels) => {
+    if (selectedLevels.length === 0) {
+      return products;
+    }
+
+    return products.filter((product) =>
+      selectedLevels.find((level) => level === product.level)
+    );
+  };
+
+  const getFilteredByAuthor = (products, selectedAuthors) => {
+    if (selectedAuthors.length === 0) {
+      return products;
+    }
+
+    return products.filter((product) =>
+      selectedAuthors.find((author) => author === product.author)
+    );
+  };
+
   const sortedData = getSortedData(products, sortBy);
   const filteredData = getFilteredData(sortedData, {
     showInventoryAll,
     fastDeliveryOnly,
   });
+  const filterByLevel = getFilteredByLevels(filteredData, selectedLevels);
+  const filterByAuthor = getFilteredByAuthor(filterByLevel, selectedAuthors);
 
-  const filteredProducts = filteredData.filter(
+  const filteredProducts = filterByAuthor.filter(
     (product) =>
       product.name.toLowerCase().includes(searchedKeyword.toLowerCase()) ||
       product.author.toLowerCase().includes(searchedKeyword.toLowerCase())
@@ -56,59 +80,7 @@ export const ProductListing = () => {
     <div>
       <Navbar />
       <div className="main-product-area">
-        <aside className="side-pannel">
-          <fieldset>
-            <legend>Sort By</legend>
-            <label className="form-label">
-              <input
-                type="radio"
-                name="sort"
-                onChange={() =>
-                  productsDispatch({
-                    type: "SORT",
-                    payload: "PRICE_HIGH_TO_LOW",
-                  })
-                }
-                checked={sortBy && sortBy === "PRICE_HIGH_TO_LOW"}
-              />
-              Price - High to Low
-            </label>
-            <label className="form-label">
-              <input
-                type="radio"
-                name="sort"
-                onChange={() =>
-                  productsDispatch({
-                    type: "SORT",
-                    payload: "PRICE_LOW_TO_HIGH",
-                  })
-                }
-                checked={sortBy && sortBy === "PRICE_LOW_TO_HIGH"}
-              />
-              Price - Low to High
-            </label>
-          </fieldset>
-
-          <fieldset>
-            <legend>Filters</legend>
-            <label className="form-label">
-              <input
-                type="checkbox"
-                onChange={() => productsDispatch({ type: "TOGGLE_STOCK" })}
-                checked={showInventoryAll}
-              />
-              Include Out of Stock
-            </label>
-            <label className="form-label">
-              <input
-                type="checkbox"
-                onChange={() => productsDispatch({ type: "TOGGLE_DELIVERY" })}
-                checked={fastDeliveryOnly}
-              />
-              Fast Delivery Only
-            </label>
-          </fieldset>
-        </aside>
+        <SideFilters />
 
         {filteredProducts.length > 0 ? (
           <div className="outer">

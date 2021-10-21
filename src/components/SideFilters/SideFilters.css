@@ -1,0 +1,41 @@
+.subFilter-container {
+  margin: 0.5rem 0;
+}
+
+.filter-header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.filter-title {
+  font-weight: 600;
+  font-size: 0.88rem;
+}
+
+.mr-04 {
+  margin-right: 0.4rem;
+}
+
+.author-names {
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex-grow: 1;
+}
+
+.sort-heading,
+.filter-heading {
+  font-size: 0.98rem;
+  font-weight: 600;
+}
+
+.clear-btn {
+  font-size: 0.88rem;
+  color: var(--primary-color);
+  font-weight: 600;
+  cursor: pointer;
+}
