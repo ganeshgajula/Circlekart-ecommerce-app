@@ -12,7 +12,7 @@ import {
   incrementItemQuantityInCart,
   decrementItemQuantityInCart,
 } from "../../components/utils/utils";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./Cart.css";
 import { useState } from "react/cjs/react.development";
 import axios from "axios";
@@ -25,6 +25,7 @@ export const Cart = () => {
   } = useData();
   const { userId } = useAuth();
   const [resetCart, setResetCart] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     resetCart &&
@@ -36,6 +37,7 @@ export const Cart = () => {
           );
 
           if (status === 200) {
+            navigate("/success");
             dataDispatch({ type: "RESET_CART_AFTER_PAYMENT" });
           }
         } catch (error) {
@@ -46,7 +48,7 @@ export const Cart = () => {
           });
         }
       })();
-  }, [dataDispatch, resetCart, userId]);
+  }, [dataDispatch, resetCart, userId, navigate]);
 
   const getTotal = (cartItems) => {
     const total = cartItems.reduce(
