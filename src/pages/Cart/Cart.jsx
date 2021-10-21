@@ -32,7 +32,7 @@ export const Cart = () => {
       (async () => {
         try {
           const { status } = await axios.post(
-            `http://localhost:4000/carts/${userId}/cart/reset`,
+            `https://api-circlekart.herokuapp.com/carts/${userId}/cart/reset`,
             { products: [] }
           );
 
