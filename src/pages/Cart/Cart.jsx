@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Navbar } from "../../components/Navbar/Navbar";
 import { useData } from "../../context/DataProvider";
 import { useAuth } from "../../context/AuthProvider";
@@ -14,14 +14,39 @@ import {
 } from "../../components/utils/utils";
 import { Link } from "react-router-dom";
 import "./Cart.css";
+import { useState } from "react/cjs/react.development";
+import axios from "axios";
+import { toast } from "react-toastify";
 
 export const Cart = () => {
-  const {
+  let {
     state: { itemsInCart, itemsInWishlist },
     dataDispatch,
   } = useData();
-
   const { userId } = useAuth();
+  const [resetCart, setResetCart] = useState(false);
+
+  useEffect(() => {
+    resetCart &&
+      (async () => {
+        try {
+          const { status } = await axios.post(
+            `http://localhost:4000/carts/${userId}/cart/reset`,
+            { products: [] }
+          );
+
+          if (status === 200) {
+            dataDispatch({ type: "RESET_CART_AFTER_PAYMENT" });
+          }
+        } catch (error) {
+          console.log(error);
+          toast.error("Something went wrong", {
+            position: "bottom-center",
+            autoClose: 2000,
+          });
+        }
+      })();
+  }, [dataDispatch, resetCart, userId]);
 
   const getTotal = (cartItems) => {
     const total = cartItems.reduce(
@@ -198,7 +223,7 @@ export const Cart = () => {
             </div>
             <button
               className="btn-sm btn checkout-btn mt-2"
-              onClick={() => loadPayment({ totalAmount })}
+              onClick={() => loadPayment({ totalAmount, setResetCart })}
             >
               Checkout
             </button>

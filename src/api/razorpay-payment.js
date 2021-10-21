@@ -15,7 +15,7 @@ const loadScript = (src) => {
   });
 };
 
-export const loadPayment = async (orderInfo) => {
+export const loadPayment = async ({ totalAmount, setResetCart }) => {
   try {
     const res = await loadScript(
       "https://checkout.razorpay.com/v1/checkout.js"
@@ -31,7 +31,7 @@ export const loadPayment = async (orderInfo) => {
     } = await axios.post(
       "https://api-circlekart.herokuapp.com/carts/checkout",
       {
-        orderInfo,
+        totalAmount,
       }
     );
 
@@ -44,9 +44,8 @@ export const loadPayment = async (orderInfo) => {
       image: paymentLogo,
       order_id: order.id,
       handler: function (response) {
-        alert(response.razorpay_payment_id);
-        alert(response.razorpay_order_id);
-        alert(response.razorpay_signature);
+        setResetCart(true);
+        alert("order successful");
       },
       prefill: {
         name: "Ganesh Gajula",

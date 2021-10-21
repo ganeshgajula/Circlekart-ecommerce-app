@@ -14,6 +14,9 @@ export const dataReducer = (state, action) => {
     case "RESET_APP_ON_LOGOUT":
       return { ...state, itemsInWishlist: [], itemsInCart: [] };
 
+    case "RESET_CART_AFTER_PAYMENT":
+      return { ...state, itemsInCart: [] };
+
     default:
       return state;
   }
