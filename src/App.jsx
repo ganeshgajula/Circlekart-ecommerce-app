@@ -16,6 +16,7 @@ import { useData } from "./context/DataProvider";
 import { useAuth } from "./context/AuthProvider";
 import { Signup } from "./pages/Signup/Signup";
 import "./App.css";
+import { PaymentSuccess } from "./pages/PaymentSuccess/PaymentSuccess";
 
 const App = () => {
   const { productsDispatch } = useProducts();
@@ -84,6 +85,7 @@ const App = () => {
         <PrivateRoute path="/wishlist" element={<Wishlist />} />
         <PrivateRoute path="/cart" element={<Cart />} />
         <PrivateRoute path="/profile" element={<Profile />} />
+        <PrivateRoute path="/success" element={<PaymentSuccess />} />
       </Routes>
     </div>
   );
