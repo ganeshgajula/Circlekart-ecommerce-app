@@ -4,6 +4,9 @@ import { toast } from "react-toastify";
 export const isItemPresent = (array, id) =>
   !!array.find(({ productId }) => productId._id === id);
 
+export const isSelectedItemPresent = (array, value) =>
+  !!array.find((item) => item === value);
+
 export const addProductToCart = async (_id, dataDispatch, userId) => {
   try {
     const {
