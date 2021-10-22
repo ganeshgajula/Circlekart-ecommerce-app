@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Navbar } from "../../components/Navbar/Navbar";
 import { useData } from "../../context/DataProvider";
 import { useAuth } from "../../context/AuthProvider";
@@ -14,7 +14,6 @@ import {
 } from "../../components/utils/utils";
 import { Link, useNavigate } from "react-router-dom";
 import "./Cart.css";
-import { useState } from "react/cjs/react.development";
 import axios from "axios";
 import { toast } from "react-toastify";
 
