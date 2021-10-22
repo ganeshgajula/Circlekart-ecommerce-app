@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Navbar } from "../../components/Navbar/Navbar";
+import { NavbarWithoutSearch } from "../../components/Navbar/NavbarWithoutSearch";
 import { useData } from "../../context/DataProvider";
 import { useAuth } from "../../context/AuthProvider";
 import { DeleteSvg } from "../../components/Reusable-Svgs/svgs";
@@ -61,7 +61,7 @@ export const Cart = () => {
 
   return (
     <div>
-      <Navbar />
+      <NavbarWithoutSearch />
       {itemsInCart.length > 0 ? (
         <main className="cart-area">
           <div className="cartItems-section">

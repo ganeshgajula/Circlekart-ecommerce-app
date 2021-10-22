@@ -1,17 +1,17 @@
 import React from "react";
 import { SuccessCheck } from "../../assets/svgs/SuccessCheck";
-import { Navbar } from "../../components/Navbar/Navbar";
 import { useAuth } from "../../context/AuthProvider";
 import "./PaymentSuccess.css";
 import { Link } from "react-router-dom";
 import { SuccessCheckMin } from "../../assets/svgs/SuccessCheckMin";
+import { NavbarWithoutSearch } from "../../components/Navbar/NavbarWithoutSearch";
 
 export const PaymentSuccess = () => {
   const { username } = useAuth();
 
   return (
     <>
-      <Navbar />
+      <NavbarWithoutSearch />
       <div className="success-container">
         <div className="success-title-container">
           <h1 className="success-title">Payment Successful</h1>

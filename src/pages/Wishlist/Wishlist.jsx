@@ -1,8 +1,8 @@
-import { Navbar } from "../../components/Navbar/Navbar";
 import { useData } from "../../context/DataProvider";
 import { useAuth } from "../../context/AuthProvider";
 import { isItemPresent } from "../../components/utils/utils";
 import { EmptyWishlist } from "../../components/EmptyWishlist/EmptyWishlist";
+import { NavbarWithoutSearch } from "../../components/Navbar/NavbarWithoutSearch";
 import {
   moveProductToCart,
   removeProductFromWishlist,
@@ -17,7 +17,7 @@ export const Wishlist = () => {
 
   return (
     <div>
-      <Navbar />
+      <NavbarWithoutSearch />
       {state.itemsInWishlist.length > 0 ? (
         <main className="wishlist-area">
           <div className="wishlist-count-value">

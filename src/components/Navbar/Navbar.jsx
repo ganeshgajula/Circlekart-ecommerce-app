@@ -25,18 +25,6 @@ export function Navbar() {
           <img className="brand-logo" src={logo} alt="brand-logo" />
         </Link>
 
-        <ul className="nav-links">
-          <Link
-            to="/products"
-            style={{
-              textDecoration: "none",
-              color: "#000",
-            }}
-          >
-            <li className="nav-link">All Products</li>
-          </Link>
-        </ul>
-
         <SearchBar />
 
         <ul className="nav-list">

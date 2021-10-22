@@ -1,6 +1,6 @@
 import React from "react";
+import { NavbarWithoutSearch } from "../Navbar/NavbarWithoutSearch";
 import "./ProductDetailCard.css";
-import { Navbar } from "../Navbar/Navbar";
 import { useData } from "../../context/DataProvider";
 import { useAuth } from "../../context/AuthProvider";
 import { Link } from "react-router-dom";
@@ -29,7 +29,7 @@ export const ProductDetailCard = ({
 
   return (
     <>
-      <Navbar />
+      <NavbarWithoutSearch />
       <div className="product-detail-card">
         <img src={image} alt="product" className="product-image" />
         <div className="product-details-container">

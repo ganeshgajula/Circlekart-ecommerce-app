@@ -2,11 +2,18 @@
   padding: 0.3rem 2.5rem;
 }
 
+.logoNav-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
 .nav-links {
   display: flex;
   list-style: none;
   text-decoration: none;
-  padding-left: 0;
+  margin-left: 3rem;
 }
 
 .nav-link:hover {
@@ -109,8 +116,10 @@
   .mobile-navbar {
     display: flex;
     flex-direction: column;
-    padding: 1rem;
+    padding: 0.3rem 0.5rem;
     max-width: 100%;
+    background-color: #fff;
+    border-bottom: 1px solid var(--gray-color);
   }
 
   .search-field {
@@ -127,6 +136,7 @@
 
   .nav-list {
     gap: 0.6rem;
+    margin: 0.5rem 0 0.3rem;
   }
 }
 

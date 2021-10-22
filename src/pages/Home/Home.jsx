@@ -1,8 +1,8 @@
 import React from "react";
-import { Navbar } from "../../components/Navbar/Navbar";
 import heroImg from "../Home/hero-image.jpg";
 import "../Home/Home.css";
 import { Link } from "react-router-dom";
+import { NavbarWithoutSearch } from "../../components/Navbar/NavbarWithoutSearch";
 
 export const Home = () => {
   return (
@@ -11,7 +11,7 @@ export const Home = () => {
       style={{ background: `url(${heroImg}) no-repeat center center/cover` }}
     >
       <div>
-        <Navbar />
+        <NavbarWithoutSearch />
       </div>
       <div className="content">
         <h1 className="hero-title">Enhance your financial knowledge</h1>

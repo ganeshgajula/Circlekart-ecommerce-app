@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { toast } from "react-toastify";
-import { Navbar } from "../../components/Navbar/Navbar";
+import { NavbarWithoutSearch } from "../../components/Navbar/NavbarWithoutSearch";
 import { updateUserData } from "../../components/utils/utils";
 import { useAuth } from "../../context/AuthProvider";
 import { useData } from "../../context/DataProvider";
@@ -54,7 +54,7 @@ export const Profile = () => {
 
   return (
     <div>
-      <Navbar />
+      <NavbarWithoutSearch />
       <div className="profile-details">
         <div className="profile-header">
           <h1 className="profile-title">Account Details</h1>
