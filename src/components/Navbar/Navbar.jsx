@@ -56,7 +56,7 @@ export function Navbar() {
           <Link to="/wishlist">
             <li className="nav-item badge-on-icon-container">
               {<OutlinedHeartSvg />}
-              {token && (
+              {token && itemsInWishlist.length > 0 && (
                 <span className="icon-badge blue ic-badge-heart-top">
                   {itemsInWishlist.length}
                 </span>
@@ -66,7 +66,7 @@ export function Navbar() {
           <Link to="/cart">
             <li className="nav-item badge-on-icon-container">
               {<OutlinedCartSvg />}
-              {token && (
+              {token && itemsInCart.length > 0 && (
                 <span className="icon-badge blue ic-badge-cart-top">
                   {itemsInCart.length}
                 </span>
@@ -99,7 +99,7 @@ export function Navbar() {
             <Link to="/wishlist">
               <li className="nav-item badge-on-icon-container">
                 {<OutlinedHeartSvg />}
-                {token && (
+                {token && itemsInWishlist.length > 0 && (
                   <span className="icon-badge blue ic-badge-heart-top">
                     {itemsInWishlist.length}
                   </span>
@@ -109,7 +109,7 @@ export function Navbar() {
             <Link to="/cart">
               <li className="nav-item badge-on-icon-container">
                 {<OutlinedCartSvg />}
-                {token && (
+                {token && itemsInCart.length > 0 && (
                   <span className="icon-badge blue ic-badge-cart-top">
                     {itemsInCart.length}
                   </span>
