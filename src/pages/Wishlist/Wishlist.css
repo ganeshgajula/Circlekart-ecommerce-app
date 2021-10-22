@@ -49,6 +49,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  text-align: center;
 }
 
 .empty-wishlist-msg1 {
@@ -63,6 +64,11 @@
   .wishlist-area {
     max-width: 100%;
     margin: auto;
+  }
+
+  .empty-wishlist-area {
+    max-width: 95%;
+    margin: 1.5rem auto 0;
   }
 
   .wishlisted-items {
