@@ -49,6 +49,14 @@
   margin: 0.6rem 0;
 }
 
+.spinner-area {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 60vh;
+}
+
 @media (max-width: 600px) {
   .side-pannel {
     display: none;

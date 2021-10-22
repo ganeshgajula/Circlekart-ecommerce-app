@@ -3,11 +3,11 @@ import { Navbar } from "../../components/Navbar/Navbar";
 import "../ProductListing/ProductListing.css";
 import { useProducts } from "../../context/ProductsProvider";
 import { ProductCard } from "../../components/ProductsCard/ProductCard";
-import { EmptySearch } from "../../components/EmptySearch/EmptySearch";
 import { FilterIcon, SortIcon } from "../../assets/svgs";
 import { SortBottomDrawer } from "../../components/SortBottomDrawer/SortBottomDrawer";
 import { FilterBottomDrawer } from "../../components/FilterBottomDrawer/FilterBottomDrawer";
 import { SideFilters } from "../../components/SideFilters/SideFilters";
+import { SpinnerOrEmptySearch } from "../../components/SpinnerOrEmptySearch/SpinnerOrEmptySearch";
 
 export const ProductListing = () => {
   const {
@@ -80,40 +80,41 @@ export const ProductListing = () => {
     <div>
       <Navbar />
       <div className="main-product-area">
-        <SideFilters />
-
         {filteredProducts.length > 0 ? (
-          <div className="outer">
-            <main className="products-area">
-              <ProductCard ProductsList={filteredProducts} />
-            </main>
+          <>
+            <SideFilters />
+            <div className="outer">
+              <main className="products-area">
+                <ProductCard ProductsList={filteredProducts} />
+              </main>
 
-            <div className="mobile-filters">
-              <span
-                className="sort-container"
-                onClick={() => setShowSortDrawer(true)}
-              >
-                <SortIcon />
-                <span className="display-text">Sort</span>
-              </span>
-              <span
-                className="filter-container"
-                onClick={() => setShowFilterDrawer(true)}
-              >
-                <FilterIcon />
-                <span className="display-text">Filter</span>
-              </span>
+              <div className="mobile-filters">
+                <span
+                  className="sort-container"
+                  onClick={() => setShowSortDrawer(true)}
+                >
+                  <SortIcon />
+                  <span className="display-text">Sort</span>
+                </span>
+                <span
+                  className="filter-container"
+                  onClick={() => setShowFilterDrawer(true)}
+                >
+                  <FilterIcon />
+                  <span className="display-text">Filter</span>
+                </span>
+              </div>
+
+              {showSortDrawer && (
+                <SortBottomDrawer setShowSortDrawer={setShowSortDrawer} />
+              )}
+              {showFilterDrawer && (
+                <FilterBottomDrawer setShowFilterDrawer={setShowFilterDrawer} />
+              )}
             </div>
-
-            {showSortDrawer && (
-              <SortBottomDrawer setShowSortDrawer={setShowSortDrawer} />
-            )}
-            {showFilterDrawer && (
-              <FilterBottomDrawer setShowFilterDrawer={setShowFilterDrawer} />
-            )}
-          </div>
+          </>
         ) : (
-          <EmptySearch />
+          <SpinnerOrEmptySearch />
         )}
       </div>
     </div>
