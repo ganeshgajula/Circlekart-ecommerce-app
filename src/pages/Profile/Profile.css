@@ -13,6 +13,8 @@
   border: none;
   font-size: 1.1rem;
   cursor: pointer;
+  padding: 0.5rem 0.8rem;
+  border-radius: 0.4rem;
 }
 
 .profile-header {
@@ -94,4 +96,76 @@ label {
 
 .email:hover {
   cursor: not-allowed;
+}
+
+@media (max-width: 500px) {
+  .userFullName {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .profile-title {
+    font-size: 1.3rem;
+    font-weight: 500;
+  }
+
+  .profile-details {
+    margin: 1rem auto 0;
+  }
+
+  .profile-header {
+    max-width: 95%;
+    margin: auto;
+    justify-content: space-around;
+  }
+
+  .edit-data {
+    width: 80%;
+    margin: 1rem auto 0;
+  }
+
+  .edit-heading {
+    font-size: 1.2rem;
+  }
+
+  .form-input {
+    width: 100%;
+  }
+
+  .lastname-field {
+    margin-top: 0.6rem;
+  }
+
+  .logout-btn {
+    font-size: 0.9rem;
+    cursor: pointer;
+    padding: 0.4rem;
+    border-radius: 0.4rem;
+  }
+
+  .mr-3 {
+    margin-right: 0;
+  }
+}
+
+@media (min-width: 501px) and (max-width: 600px) {
+  .profile-details {
+    margin: 1rem auto 0;
+  }
+
+  .profile-title {
+    font-size: 1.5rem;
+    font-weight: 500;
+  }
+
+  .logout-btn {
+    font-size: 1.1rem;
+    cursor: pointer;
+    padding: 0.4rem 0.8rem;
+    border-radius: 0.4rem;
+  }
+
+  .edit-heading {
+    font-size: 1.3rem;
+  }
 }

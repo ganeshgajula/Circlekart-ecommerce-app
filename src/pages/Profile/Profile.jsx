@@ -58,7 +58,7 @@ export const Profile = () => {
       <div className="profile-details">
         <div className="profile-header">
           <h1 className="profile-title">Account Details</h1>
-          <button className="logout-btn btn-sm" onClick={logoutHandler}>
+          <button className="logout-btn" onClick={logoutHandler}>
             Logout
           </button>
         </div>
@@ -77,7 +77,7 @@ export const Profile = () => {
                     onChange={(e) => setFirstName(e.target.value)}
                   />
                 </div>
-                <div className="inputFields">
+                <div className="inputFields lastname-field">
                   <label htmlFor="lastname">lastname</label>
                   <input
                     className="form-input"
