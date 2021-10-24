@@ -119,6 +119,12 @@
   margin-top: 2rem;
 }
 
+.payment-credentials {
+  margin: 0.6rem 0 0;
+  text-align: center;
+  font-size: 0.9rem;
+}
+
 @media (max-width: 500px) {
   .cart-area {
     flex-direction: column;

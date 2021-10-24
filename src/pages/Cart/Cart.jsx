@@ -228,6 +228,12 @@ export const Cart = () => {
             >
               Checkout
             </button>
+            <small className="payment-credentials">
+              Card No : 4111 1111 1111 1111
+            </small>
+            <small className="payment-credentials">
+              UPI : success@razorpay
+            </small>
           </aside>
         </main>
       ) : (
