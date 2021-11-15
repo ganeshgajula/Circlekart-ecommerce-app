@@ -1,0 +1,77 @@
+.login-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+.login-heading {
+  margin-top: 2rem;
+  font-size: 1.8rem;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 90%;
+  width: 24%;
+}
+
+.input-area {
+  display: block;
+  font-size: 1rem;
+  padding: 0.8rem 0.5rem;
+  border-radius: 0.2rem;
+  border: 0.2px solid #ccc;
+}
+
+input::placeholder {
+  color: #bbb;
+}
+
+.btn-primary {
+  font-size: 1.2rem;
+  padding: 0.7rem 0.8rem;
+}
+
+.w-100 {
+  width: 100%;
+  margin: 2rem auto;
+}
+
+.signup-msg {
+  font-weight: 500;
+  margin-right: 0.3rem;
+}
+
+@media (max-width: 500px) {
+  .login-container {
+    max-width: 90%;
+  }
+
+  .login-form {
+    width: 75%;
+  }
+}
+
+@media (min-width: 501px) and (max-width: 800px) {
+  .login-container {
+    max-width: 80%;
+  }
+
+  .login-form {
+    width: 60%;
+  }
+}
+
+@media (min-width: 801px) and (max-width: 1200px) {
+  .login-container {
+    max-width: 85%;
+  }
+  .login-form {
+    width: 35%;
+  }
+}

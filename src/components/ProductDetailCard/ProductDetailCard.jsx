@@ -1,0 +1,85 @@
+import React from "react";
+import { NavbarWithoutSearch } from "../Navbar/NavbarWithoutSearch";
+import "./ProductDetailCard.css";
+import { useData } from "../../context/DataProvider";
+import { useAuth } from "../../context/AuthProvider";
+import { Link } from "react-router-dom";
+import {
+  addProductToCart,
+  addProductToWishlist,
+  isItemPresent,
+} from "../utils/utils";
+
+export const ProductDetailCard = ({
+  _id,
+  name,
+  image,
+  price,
+  author,
+  inStock,
+  level,
+  fastDelivery,
+}) => {
+  const {
+    state: { itemsInCart, itemsInWishlist },
+    dataDispatch,
+  } = useData();
+
+  const { userId } = useAuth();
+
+  return (
+    <>
+      <NavbarWithoutSearch />
+      <div className="product-detail-card">
+        <img src={image} alt="product" className="product-image" />
+        <div className="product-details-container">
+          <div className="product-details">
+            <h2 className="heading-md">{name}</h2>
+            <p className="author-name">by {author}</p>
+            <p className="product-price">Rs. {price}</p>
+            <p className="level">Level: {level}</p>
+            <p className="stock-status">
+              {inStock ? "Currently in stock" : "Currently out of stock"}
+            </p>
+            <p className="delivery-info">
+              {fastDelivery
+                ? "Fast delivery available"
+                : "Delivered within 3 days"}
+            </p>
+          </div>
+          <div>
+            <span className="product-action-btn">
+              {!isItemPresent(itemsInCart, _id) && (
+                <button
+                  className="btn-primary btn-md"
+                  onClick={() => addProductToCart(_id, dataDispatch, userId)}
+                  disabled={!inStock ? true : false}
+                  style={{ cursor: !inStock ? "not-allowed" : "pointer" }}
+                >
+                  Add to Cart
+                </button>
+              )}
+
+              {isItemPresent(itemsInCart, _id) && (
+                <Link to="/cart">
+                  <button className="btn-primary btn-md">Go to Cart</button>
+                </Link>
+              )}
+            </span>
+            <button
+              className="btn-outline btn-md"
+              onClick={() =>
+                !isItemPresent(itemsInWishlist, _id) &&
+                addProductToWishlist(_id, dataDispatch, userId)
+              }
+            >
+              {!isItemPresent(itemsInWishlist, _id)
+                ? "Add to Wishlist"
+                : "Wishlisted"}
+            </button>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+};

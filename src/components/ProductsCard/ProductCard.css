@@ -1,0 +1,61 @@
+.close-btn-on-card {
+  right: 1.3rem;
+  background-color: #d1d5db;
+  padding: 0.4rem 0.4rem 0.2rem;
+  border-radius: 50%;
+}
+
+.close-btn-on-card > svg {
+  cursor: pointer;
+}
+
+.btn-outline {
+  margin-top: 1rem;
+}
+
+.card-vertical {
+  display: flex;
+  flex-direction: column;
+}
+
+.product-description-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.product-availability-info {
+  flex-grow: 1;
+}
+
+.product-name {
+  font-size: 1rem;
+  font-weight: 600;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex-grow: 1;
+}
+
+.product-price-card-view {
+  margin: 0.2rem 0 0.4rem;
+  font-weight: 600;
+}
+
+.stock-status {
+  font-size: 0.95rem;
+}
+
+.level-info,
+.delivery-status {
+  margin-bottom: 0.4rem;
+  font-size: 0.9rem;
+}
+
+@media (max-width: 500px) {
+  .btn-outline {
+    font-size: 0.95rem;
+  }
+}

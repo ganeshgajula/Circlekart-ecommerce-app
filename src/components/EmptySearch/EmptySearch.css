@@ -1,0 +1,14 @@
+.empty-search-container {
+  margin-left: 18rem;
+  margin: auto;
+}
+
+.empty-search-title {
+  font-size: 1.6rem;
+  text-align: center;
+}
+
+.empty-search-description {
+  font-size: 1.2rem;
+  text-align: center;
+}
